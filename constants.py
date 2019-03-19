@@ -1,2 +1,2 @@
-canvas_width = 1000
-canvas_height = 450
+canvas_width = 200
+canvas_height = 90

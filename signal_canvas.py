@@ -1,5 +1,5 @@
 from tkinter import *
-
+from constants import *
 
 class SignalCanvas():
 
@@ -34,8 +34,8 @@ class SignalCanvas():
 
     def __init__(self, signal_color):
         self.signal_color = signal_color
-        self.canvas_width = 600
-        self.canvas_height = 250
+        self.canvas_width = canvas_width
+        self.canvas_height = canvas_height
 
         self.signal = [0 for i in range(self.canvas_width)]
         self.signals = [None for i in range(self.canvas_width)]
