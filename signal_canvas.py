@@ -37,8 +37,8 @@ class SignalCanvas():
         self.canvas_width = canvas_width
         self.canvas_height = canvas_height
 
-        self.signal = [0 for i in range(self.canvas_width)]
-        self.signals = [None for i in range(self.canvas_width)]
+        self.signal = [int(canvas_height / 2) for i in range(self.canvas_width)]
+        self.signal_ovals = [None for i in range(self.canvas_width)]
 
         self.state = None
 
@@ -61,10 +61,10 @@ class SignalCanvas():
                     # self.paint(i, j, )
 
     def paint(self, x, y, color="#476042"):
-        if self.signals[x - 1] is not None:
-            self.w.delete(self.signals[x - 1])
+        if self.signal_ovals[x - 1] is not None:
+            self.w.delete(self.signal_ovals[x - 1])
 
         x1, y1 = (x - 1), (y - 1)
         x2, y2 = (x + 1), (y + 1)
         self.signal[x - 1] = y
-        self.signals[x - 1] = self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color)
+        self.signal_ovals[x - 1] = self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color)

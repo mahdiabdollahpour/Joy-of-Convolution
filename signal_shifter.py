@@ -5,17 +5,19 @@ from tkinter import *
 
 class SignalShifter():
 
-    def __init__(self, signal_color, signal1, signal2):
+    def __init__(self, signal_color, signal1, signal2,product_canvas,conv_canvas):
         self.signal_color = signal_color
         self.canvas_width = canvas_width * 2
         self.canvas_height = canvas_height
+        self.pc = product_canvas
+        self.cc = conv_canvas
 
-        self.signal1 = signal1
+        self.signal1 = signal1.copy()
         self.signal1_ovals = [None for i in range(self.canvas_width)]
-        self.signal2 = signal2
+        self.signal2 = signal2.copy()
         self.signal2_ovals = [None for i in range(self.canvas_width)]
         self.state = None
-        self.move_start = 0
+        self.move_start = int(self.canvas_width / 4)
         self.current_shift = 0
         self.previous_shift = 0
 
@@ -32,9 +34,12 @@ class SignalShifter():
             #     self.w.delete(oval)
             for i, val in enumerate(self.signal1):
                 # self.w.delete(self.signal1_ovals[i])
-                print((event.x - self.move_start))
+                # print((event.x - self.move_start))
                 self.current_shift = (event.x - self.move_start) + self.previous_shift
-                self.paint(i + self.previous_shift + (event.x - self.move_start), val, i)
+                # print("Current shift",self.current_shift)
+                self.paint(i + int(self.canvas_width / 4) + self.current_shift, val, i, signal_idx=1)
+            self.pc.update()
+            self.cc.update()
 
     def Button_lis(self, event):
         if self.state is None:
@@ -64,14 +69,32 @@ class SignalShifter():
         for i in range(self.canvas_width):
             for j in range(self.canvas_height):
                 if (self.is_on_axis(i, j)):
-                    print('hkj')
+                    # print('hkj')
                     self.w.create_oval(i - 1, j - 1, i + 1, j + 1, fill="#fff")
                     # self.paint(i, j, )
 
-    def paint(self, x, y, index, color="#476042"):
-        if self.signal1_ovals[index] is not None:
-            self.w.delete(self.signal1_ovals[index])
+    def plot(self):
+        self.current_shift = 0
+        self.previous_shift = 0
+        for i, sing in enumerate(self.signal1):
+            print("Hey there")
+            self.paint(i + self.canvas_width / 4, sing, i, signal_idx=1, color="blue")
+        for i, sing in enumerate(self.signal2):
+            self.paint(i + self.canvas_width / 4, sing, i, signal_idx=2, color="red")
 
-        x1, y1 = (x - 1), (y - 1)
-        x2, y2 = (x + 1), (y + 1)
-        self.signal1_ovals[index] = self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color)
+    def paint(self, x, y, index, signal_idx, color="#476042"):
+        if signal_idx == 1:
+
+            if self.signal1_ovals[index] is not None:
+                self.w.delete(self.signal1_ovals[index])
+
+            x1, y1 = (x - 1), (y - 1)
+            x2, y2 = (x + 1), (y + 1)
+            self.signal1_ovals[index] = self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color)
+
+        else:
+            if self.signal2_ovals[index] is not None:
+                self.w.delete(self.signal2_ovals[index])
+            x1, y1 = (x - 1), (y - 1)
+            x2, y2 = (x + 1), (y + 1)
+            self.signal2_ovals[index] = self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color)
