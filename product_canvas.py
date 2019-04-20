@@ -4,13 +4,13 @@ from tkinter import *
 
 
 class ProductCanvas():
-    def __init__(self, signal_color, shifter):
+    def __init__(self, canvas_width_, signal_color, shifter):
         self.shifter = shifter
         self.signal_color = signal_color
-        self.canvas_width = canvas_width * 2
+        self.canvas_width = canvas_width_
         self.canvas_height = canvas_height
 
-        self.signal = [int(canvas_height / 2) for i in range(self.canvas_width)]
+        self.signal = [0 for i in range(self.canvas_width)]
         self.signal_ovals = [None for i in range(self.canvas_width)]
 
         self.state = None
@@ -19,18 +19,19 @@ class ProductCanvas():
         for ov in self.signal_ovals:
             self.w.delete(ov)
         for i in range(canvas_width):
-            index = - 1* self.shifter.current_shift + i
+            index = - 1 * self.shifter.total_shift + i
             # print("at index", i)
             shifted_value = 0
-            if index < len(self.shifter.signal1) and index >=0:
-                shifted_value = ((self.shifter.signal1[index] - int(canvas_height / 2)) / unit)
-            stable_value = ((self.shifter.signal2[i] - int(canvas_height / 2)) / unit)
+            if index < len(self.shifter.signal1) and index >= 0:
+                shifted_value = ((int(canvas_height / 2) - self.shifter.signal1[index]) / unit)
+            stable_value = ((int(canvas_height / 2) - self.shifter.signal2[i]) / unit)
             # stable_value = 1
             self.signal[i] = shifted_value * stable_value
             # print(self.shifter.signal1)
 
             # print("its in update", self.signal[i])
-            self.paint(i + int(self.canvas_width / 4), self.signal[i] * unit + int(canvas_height / 2), i)
+            self.paint(i + int((self.canvas_width / 2) - (canvas_width / 2)),
+                       int(canvas_height / 2) - self.signal[i] * unit, i)
         # for j in range(len(self.signal)):
 
     def is_on_axis(self, x, y):

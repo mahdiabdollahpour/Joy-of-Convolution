@@ -3,32 +3,40 @@ from constants import *
 from tkinter import *
 
 from utils import *
+import numpy as np
 
 
 class ConvolutionCanvas():
 
-    def __init__(self, signal_color, producter):
+    def __init__(self,canvas_width_, signal_color, producter):
         self.signal_color = signal_color
-        self.canvas_width = canvas_width * 2
+        self.canvas_width = canvas_width_
         self.canvas_height = canvas_height
         self.producter = producter
         # self.producted_signal = producted_signal.copy()
 
         self.signal_ovals = [None for i in range(self.canvas_width)]
-        self.signal = [int(canvas_height / 2) for i in range(self.canvas_width)]
+        # self.signal = [int(canvas_height / 2) for i in range(self.canvas_width)]
+        self.signal = [None for i in range(self.canvas_width)]
         self.state = None
 
-    def update(self):
-        for ov in self.signal_ovals:
-            self.w.delete(ov)
-        self.signal[0] = self.producter.signal[0] - int(canvas_height / 2)
-        for i in range(1, len(self.signal)):
-            self.signal[i] = (self.signal[i - 1] ) + (
-                    self.producter.signal[i])
-        print(self.signal)
-        for i in range(2 * canvas_width):
-            # print(denormal_value(self.signal[i]), self.signal[i])
-            self.paint(i, (self.signal[i] + int(canvas_height / 2)), i)
+    def sum(self):
+        res = 0
+        print(self.producter.signal)
+        for signal in self.producter.signal:
+            res += signal
+        return res
+
+    def update(self, at_point):
+        self.plot_conved_at_point(at_point)
+
+    def plot_conved_at_point(self, at_point):
+        if self.signal[at_point] is None:
+            self.signal[at_point] = self.sum()
+            if self.signal[at_point] is None:
+                print("DAMNNNNNNNNNNNNNNNNNN")
+            print(self.signal[at_point])
+            self.paint(int((self.canvas_width / 2) - (canvas_width / 2)) + at_point, (int(canvas_height / 2) - self.signal[at_point] * convolution_diagram_unit), at_point)
 
     def is_on_axis(self, x, y):
         if x == self.canvas_width / 2 or y == self.canvas_height / 2:

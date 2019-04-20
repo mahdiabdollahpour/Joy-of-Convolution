@@ -1,6 +1,7 @@
 from tkinter import *
 from constants import *
 
+
 class SignalCanvas():
 
     def motion_lis(self, event):
@@ -8,13 +9,23 @@ class SignalCanvas():
         ## TODO : check for out of ranges
         if self.state is not None:
             # print('c')
+            print("x", event.x)
+            print("y", event.y)
+            print((int(canvas_height / 2) - event.y) / unit)
             self.paint(event.x, event.y)
-            self.paint(event.x - 1, event.y)
-            self.paint(event.x - 2, event.y)
-            self.paint(event.x - 3, event.y)
-            self.paint(event.x + 1, event.y)
-            self.paint(event.x + 2, event.y)
-            self.paint(event.x + 3, event.y)
+            if event.x - 1 >= 0:
+                self.paint(event.x - 1, event.y)
+                if event.x - 2 >= 0:
+                    self.paint(event.x - 2, event.y)
+                    if event.x - 3 >= 0:
+                        self.paint(event.x - 3, event.y)
+
+            if event.x + 1 < canvas_width:
+                self.paint(event.x + 1, event.y)
+                if event.x + 2 < canvas_width:
+                    self.paint(event.x + 2, event.y)
+                    if event.x + 3 < canvas_width:
+                        self.paint(event.x + 3, event.y)
 
     def Button_lis(self, event):
         if self.state is None:
@@ -56,7 +67,7 @@ class SignalCanvas():
         for i in range(self.canvas_width):
             for j in range(self.canvas_height):
                 if (self.is_on_axis(i, j)):
-                    print('hkj')
+                    # print('hkj')
                     self.w.create_oval(i - 1, j - 1, i + 1, j + 1, fill="#fff")
                     # self.paint(i, j, )
 

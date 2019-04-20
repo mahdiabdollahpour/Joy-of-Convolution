@@ -5,9 +5,9 @@ from tkinter import *
 
 class SignalShifter():
 
-    def __init__(self, signal_color, signal1, signal2,product_canvas,conv_canvas):
+    def __init__(self, canvas_width_, signal_color, signal1, signal2, product_canvas, conv_canvas):
         self.signal_color = signal_color
-        self.canvas_width = canvas_width * 2
+        self.canvas_width = canvas_width_
         self.canvas_height = canvas_height
         self.pc = product_canvas
         self.cc = conv_canvas
@@ -17,7 +17,7 @@ class SignalShifter():
         self.signal2 = signal2.copy()
         self.signal2_ovals = [None for i in range(self.canvas_width)]
         self.state = None
-        self.move_start = int(self.canvas_width / 4)
+        self.move_start = int(self.canvas_width / 2)
         self.current_shift = 0
         self.previous_shift = 0
 
@@ -35,11 +35,16 @@ class SignalShifter():
             for i, val in enumerate(self.signal1):
                 # self.w.delete(self.signal1_ovals[i])
                 # print((event.x - self.move_start))
-                self.current_shift = (event.x - self.move_start) + self.previous_shift
-                # print("Current shift",self.current_shift)
-                self.paint(i + int(self.canvas_width / 4) + self.current_shift, val, i, signal_idx=1)
+                self.current_shift = (event.x - self.move_start)
+                self.total_shift = self.current_shift + self.previous_shift
+                print("Current shift", self.current_shift)
+                print("previous_shift", self.previous_shift)
+                print("total_shift", self.total_shift)
+                self.paint(i + int((self.canvas_width / 2) - (canvas_width / 2)) + self.total_shift, val,
+                           i,
+                           signal_idx=1)
             self.pc.update()
-            self.cc.update()
+            self.cc.update(self.total_shift)
 
     def Button_lis(self, event):
         if self.state is None:
@@ -48,12 +53,13 @@ class SignalShifter():
             self.move_start = event.x
         else:
             print('b')
-            self.previous_shift = self.current_shift
+            self.previous_shift = self.total_shift
+            # self.move_start = event.x
             self.state = None
 
     def out_lis(self, event):
         if self.state is not None:
-            self.previous_shift = self.current_shift
+            self.previous_shift = self.total_shift
         self.state = None
 
     def create_canvas(self, master):
@@ -80,7 +86,7 @@ class SignalShifter():
             print("Hey there")
             self.paint(i + self.canvas_width / 4, sing, i, signal_idx=1, color="blue")
         for i, sing in enumerate(self.signal2):
-            self.paint(i + self.canvas_width / 4, sing, i, signal_idx=2, color="red")
+            self.paint(i + int((self.canvas_width / 2) - (canvas_width / 2)), sing, i, signal_idx=2, color="red")
 
     def paint(self, x, y, index, signal_idx, color="#476042"):
         if signal_idx == 1:
