@@ -14,8 +14,10 @@ from convolution_canvas import *
 from tkinter import Tk, BOTH
 from tkinter.ttk import Frame, Label, Style
 
-
 ## TODO : add some predefined signals , clear button to clear all, shifter moves suddenly after first click
+conv_canvas_height_coef = 1.5
+
+
 class Example(Frame):
 
     def __init__(self):
@@ -45,19 +47,21 @@ class Example(Frame):
         self.c2 = SignalCanvas("red")
         self.c2.create_canvas(self.master)
         self.pc = ProductCanvas(int(large_canvas_width_coef * canvas_width), "red", None)
-        self.cc = ConvolutionCanvas(int(large_canvas_width_coef * canvas_width), "blue", self.pc)
+        self.cc = ConvolutionCanvas(int(large_canvas_width_coef * canvas_width), "blue", self.pc,
+                                    conv_canvas_height_coef)
         self.ssh = SignalShifter(int(large_canvas_width_coef * canvas_width), "blue", self.c1.signal, self.c2.signal,
                                  self.pc, self.cc)
         self.pc.shifter = self.ssh
         self.cc.create_canvas(self.master)
         self.pc.create_canvas(self.master)
         b = Button(self.master, text="APPLY", command=self.callback, height=1, width=5)
-        step1 = Button(self.master, text="step", command=self.callback, height=1, width=5)
-        sin1 = Button(self.master, text="SIN ", command=self.callback, height=1, width=5)
-        cos1 = Button(self.master, text="COS", command=self.callback, height=1, width=5)
-        step2 = Button(self.master, text="step", command=self.callback, height=1, width=5)
-        sin2 = Button(self.master, text="SIN ", command=self.callback, height=1, width=5)
-        cos2 = Button(self.master, text="COS", command=self.callback, height=1, width=5)
+        step1 = Button(self.master, text="step", command=self.c1.step, height=1, width=5)
+
+        ramp1 = Button(self.master, text="Ramp", command=self.c1.ramp, height=1, width=5)
+        triangle1 = Button(self.master, text="traingle", command=self.c1.triangle, height=1, width=5)
+        step2 = Button(self.master, text="step", command=self.c2.step, height=1, width=5)
+        ramp2 = Button(self.master, text="Ramp", command=self.c2.ramp, height=1, width=5)
+        triangle2 = Button(self.master, text="traingle", command=self.c2.triangle, height=1, width=5)
 
         message = Label(self.master, text="Draw your Signal")
         message.pack(side=BOTTOM)
@@ -69,13 +73,13 @@ class Example(Frame):
         self.pc.w.place(x=0, y=2 * canvas_height)
         self.cc.w.place(x=0, y=3 * canvas_height)
         step1.place(x=canvas_width + int(canvas_width / buttons_padding), y=0)
-        sin1.place(x=canvas_width + int(canvas_width / buttons_padding), y=int(canvas_height / 4))
-        cos1.place(x=canvas_width + int(canvas_width / buttons_padding), y=2 * int(canvas_height / 4))
+        ramp1.place(x=canvas_width + int(canvas_width / buttons_padding), y=int(canvas_height / 4))
+        triangle1.place(x=canvas_width + int(canvas_width / buttons_padding), y=2 * int(canvas_height / 4))
 
         step2.place(x=canvas_width + int((buttons_padding - 5) * canvas_width / buttons_padding), y=0)
-        sin2.place(x=canvas_width + int((buttons_padding - 5) * canvas_width / buttons_padding),
+        ramp2.place(x=canvas_width + int((buttons_padding - 5) * canvas_width / buttons_padding),
                    y=int(canvas_height / 4))
-        cos2.place(x=canvas_width + int((buttons_padding - 5) * canvas_width / buttons_padding),
+        triangle2.place(x=canvas_width + int((buttons_padding - 5) * canvas_width / buttons_padding),
                    y=2 * int(canvas_height / 4))
 
         b.pack()
@@ -87,7 +91,8 @@ class Example(Frame):
 def main():
     root = Tk()
     # root.geometry("500x550+450+300")
-    root.geometry(str(int(large_canvas_width_coef * canvas_width)) + "x" + (str(4 * canvas_height + 60)))
+    root.geometry(str(int(large_canvas_width_coef * canvas_width)) + "x" + (
+        str(int(3 * canvas_height + conv_canvas_height_coef * canvas_height + 60))))
 
     app = Example()
     root.mainloop()

@@ -8,10 +8,10 @@ import numpy as np
 
 class ConvolutionCanvas():
 
-    def __init__(self,canvas_width_, signal_color, producter):
+    def __init__(self, canvas_width_, signal_color, producter, height_coef):
         self.signal_color = signal_color
         self.canvas_width = canvas_width_
-        self.canvas_height = canvas_height
+        self.canvas_height = int(height_coef * canvas_height)
         self.producter = producter
         # self.producted_signal = producted_signal.copy()
 
@@ -36,10 +36,11 @@ class ConvolutionCanvas():
             if self.signal[at_point] is None:
                 print("DAMNNNNNNNNNNNNNNNNNN")
             print(self.signal[at_point])
-            self.paint(int((self.canvas_width / 2) - (canvas_width / 2)) + at_point, (int(canvas_height / 2) - self.signal[at_point] * convolution_diagram_unit), at_point)
+            self.paint(int((self.canvas_width / 2)) + at_point,
+                       (int(self.canvas_height / 2) - self.signal[at_point] * convolution_diagram_unit), at_point)
 
     def is_on_axis(self, x, y):
-        if x == self.canvas_width / 2 or y == self.canvas_height / 2:
+        if x == int(self.canvas_width / 2) or y == int(self.canvas_height / 2):
             return True
         return False
 
