@@ -1,9 +1,7 @@
-from tkinter import *
-from signal_canvas import SignalCanvas
-from signal_shifter import SignalShifter
-from constants import *
-from product_canvas import ProductCanvas
-from convolution_canvas import *
+from continuous_mode.signal_canvas import SignalCanvas
+from continuous_mode.signal_shifter import SignalShifter
+from continuous_mode.product_canvas import ProductCanvas
+from continuous_mode.convolution_canvas import *
 # signal = [0 for _ in range(canvas_width)]
 # signals = [None for _ in range(canvas_width)]
 
@@ -12,7 +10,7 @@ from convolution_canvas import *
 
 # from PIL import Image, ImageTk
 from tkinter import Tk, BOTH
-from tkinter.ttk import Frame, Label, Style
+from tkinter.ttk import Frame, Label
 
 ## TODO : add some predefined signals , clear button to clear all, shifter moves suddenly after first click
 conv_canvas_height_coef = 1.5
@@ -24,6 +22,14 @@ class Example(Frame):
         super().__init__(width=2 * canvas_width, height=canvas_height * 4)
 
         self.initUI()
+
+
+    def reset(self):
+        self.c1.reset()
+        self.c2.reset()
+        self.cc.reset()
+        self.pc.reset()
+        self.ssh.reset()
 
     def callback(self):
         ## TODO : reverse the signal
@@ -54,14 +60,16 @@ class Example(Frame):
         self.pc.shifter = self.ssh
         self.cc.create_canvas(self.master)
         self.pc.create_canvas(self.master)
-        b = Button(self.master, text="APPLY", command=self.callback, height=1, width=5)
-        step1 = Button(self.master, text="step", command=self.c1.step, height=1, width=5)
+        b = Button(self.master, text="Apply", command=self.callback, height=1, width=5)
+        step1 = Button(self.master, text="Step", command=self.c1.step, height=1, width=5)
 
         ramp1 = Button(self.master, text="Ramp", command=self.c1.ramp, height=1, width=5)
-        triangle1 = Button(self.master, text="traingle", command=self.c1.triangle, height=1, width=5)
-        step2 = Button(self.master, text="step", command=self.c2.step, height=1, width=5)
+        triangle1 = Button(self.master, text="Traingle", command=self.c1.triangle, height=1, width=5)
+        step2 = Button(self.master, text="Step", command=self.c2.step, height=1, width=5)
         ramp2 = Button(self.master, text="Ramp", command=self.c2.ramp, height=1, width=5)
-        triangle2 = Button(self.master, text="traingle", command=self.c2.triangle, height=1, width=5)
+        triangle2 = Button(self.master, text="Traingle", command=self.c2.triangle, height=1, width=5)
+
+        reset_b = Button(self.master, text="Reset", command=self.reset, height=1, width=5)
 
         message = Label(self.master, text="Draw your Signal")
         message.pack(side=BOTTOM)
@@ -82,7 +90,9 @@ class Example(Frame):
         triangle2.place(x=canvas_width + int((buttons_padding - 5) * canvas_width / buttons_padding),
                    y=2 * int(canvas_height / 4))
 
-        b.pack()
+        reset_b.place(x=canvas_width + int(canvas_width / 2.5)   , y=2 * int(canvas_height / 4))
+        b.place(x=canvas_width + int(canvas_width / 2.5)   , y=1 * int(canvas_height / 4))
+        # b.pack()
 
     # def minsize(self):
     #     return 2 * canvas_width, 3 * canvas_height
@@ -92,7 +102,7 @@ def main():
     root = Tk()
     # root.geometry("500x550+450+300")
     root.geometry(str(int(large_canvas_width_coef * canvas_width)) + "x" + (
-        str(int(3 * canvas_height + conv_canvas_height_coef * canvas_height + 60))))
+        str(int(3 * canvas_height + conv_canvas_height_coef * canvas_height ))))
 
     app = Example()
     root.mainloop()

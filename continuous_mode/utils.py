@@ -1,4 +1,4 @@
-from constants import *
+from continuous_mode.constants import *
 
 
 def get_normal_value(val):

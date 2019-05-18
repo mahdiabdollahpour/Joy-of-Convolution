@@ -1,5 +1,5 @@
 from tkinter import *
-from constants import *
+from continuous_mode.constants import *
 
 
 class SignalCanvas():
@@ -84,7 +84,7 @@ class SignalCanvas():
         for i in range(self.canvas_width):
             self.paint(i, (length / 2 - (((i + 3) % length))) + self.canvas_height / 2)
 
-    def step(self, length=40, const=30):
+    def step(self, length=40, const=25):
         for i in range(self.canvas_width):
             if ((i + 3) % length) < length / 2:
                 self.paint(i, self.canvas_height / 2)
@@ -97,3 +97,11 @@ class SignalCanvas():
                 self.paint(i, self.canvas_height / 2 - ((i + 3) % length))
             else:
                 self.paint(i, self.canvas_height / 2 - (((length - i - 3) % length)))
+
+
+
+    def reset(self):
+        ## TODO: clear value
+        for index in range(self.canvas_width):
+            if self.signal_ovals[index] is not None:
+                self.w.delete(self.signal_ovals[index])

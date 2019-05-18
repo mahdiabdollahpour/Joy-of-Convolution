@@ -1,9 +1,6 @@
-from constants import *
-
 from tkinter import *
 
-from utils import *
-import numpy as np
+from continuous_mode.utils import *
 
 
 class ConvolutionCanvas():
@@ -35,7 +32,7 @@ class ConvolutionCanvas():
             self.signal[at_point] = self.sum()
             if self.signal[at_point] is None:
                 print("DAMNNNNNNNNNNNNNNNNNN")
-            print(self.signal[at_point])
+            print(self.signal[at_point],(int(self.canvas_height / 2) - self.signal[at_point] * convolution_diagram_unit))
             self.paint(int((self.canvas_width / 2)) + at_point,
                        (int(self.canvas_height / 2) - self.signal[at_point] * convolution_diagram_unit), at_point)
 
@@ -65,3 +62,9 @@ class ConvolutionCanvas():
         x1, y1 = (x - 1), (y - 1)
         x2, y2 = (x + 1), (y + 1)
         self.signal_ovals[index] = self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color)
+
+    def reset(self):
+        for index in range(self.canvas_width):
+            if self.signal_ovals[index] is not None:
+                self.w.delete(self.signal_ovals[index])
+            self.signal[index] = None

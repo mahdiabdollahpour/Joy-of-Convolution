@@ -1,4 +1,4 @@
-from constants import *
+from continuous_mode.constants import *
 
 from tkinter import *
 
@@ -60,3 +60,8 @@ class ProductCanvas():
         x1, y1 = (x - 1), (y - 1)
         x2, y2 = (x + 1), (y + 1)
         self.signal_ovals[index] = self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color)
+
+    def reset(self):
+        for index in range(self.canvas_width):
+            if self.signal_ovals[index] is not None:
+                self.w.delete(self.signal_ovals[index])

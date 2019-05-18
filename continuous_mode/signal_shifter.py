@@ -1,4 +1,4 @@
-from constants import *
+from continuous_mode.constants import *
 
 from tkinter import *
 
@@ -37,9 +37,9 @@ class SignalShifter():
                 # print((event.x - self.move_start))
                 self.current_shift = (event.x - self.move_start)
                 self.total_shift = self.current_shift + self.previous_shift
-                print("Current shift", self.current_shift)
-                print("previous_shift", self.previous_shift)
-                print("total_shift", self.total_shift)
+                # print("Current shift", self.current_shift)
+                # print("previous_shift", self.previous_shift)
+                # print("total_shift", self.total_shift)
                 self.paint(i + int((self.canvas_width / 2) - (canvas_width / 2)) + self.total_shift, val,
                            i,
                            signal_idx=1)
@@ -104,3 +104,12 @@ class SignalShifter():
             x1, y1 = (x - 1), (y - 1)
             x2, y2 = (x + 1), (y + 1)
             self.signal2_ovals[index] = self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color)
+
+    def reset(self):
+        for index in range(self.canvas_width):
+            if self.signal1_ovals[index] is not None:
+                self.w.delete(self.signal1_ovals[index])
+
+        for index in range(self.canvas_width):
+            if self.signal2_ovals[index] is not None:
+                self.w.delete(self.signal2_ovals[index])
