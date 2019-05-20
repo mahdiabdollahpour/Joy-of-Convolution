@@ -15,7 +15,6 @@ class ProductCanvas():
 
         self.state = None
 
-
     def round(self, val):
         if (val % descretize_unit) < descretize_unit / 2:
             return descretize_unit * int(val / descretize_unit)
@@ -26,7 +25,7 @@ class ProductCanvas():
         for ov in self.signal_ovals:
             self.w.delete(ov)
         for i in range(len(self.shifter.signal2)):
-            index = - 1 * int(self.shifter.total_shift/descretize_unit) + i
+            index = - 1 * int(self.shifter.total_shift / descretize_unit) + i
             # print("at index", i)
             shifted_value = 0
             if index < len(self.shifter.signal1) and index >= 0:
@@ -80,9 +79,6 @@ class ProductCanvas():
                 self.signal_ovals[int(index / descretize_unit)].append(
                     self.w.create_oval(x1, y1, x2, y2, fill="#000"))
         # self.signal[int(index / descretize_unit)] = y
-
-
-
 
     def reset(self):
         for i in range(len(self.signal)):

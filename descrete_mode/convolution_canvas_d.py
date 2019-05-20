@@ -14,7 +14,8 @@ class ConvolutionCanvas():
 
         self.signal_ovals = [[] for i in range(len(self.producter.signal))]
         # self.signal = [int(canvas_height / 2) for i in range(self.canvas_width)]
-        self.signal = [None for i in range(len(self.producter.signal))]
+        self.signal = [0 for i in range(len(self.producter.signal))]
+        self.flag = [False for i in range(len(self.producter.signal))]
         self.state = None
 
     def sum(self):
@@ -30,18 +31,37 @@ class ConvolutionCanvas():
         self.plot_conved_at_point(at_point)
 
     def plot_conved_at_point(self, at_point):
-        # print(at_point,len(self.signal))
+        print(at_point, self.signal)
 
-        if self.signal[at_point] is None:
-            self.signal[at_point] = self.sum()
+        if self.flag[at_point] is False:
+            l = len(self.producter.shifter.signal1)
+            self.flag[at_point] = True
+            # self.signal[at_point] = self.sum()
             # if self.signal[at_point] is None:
             #     print("DAMNNNNNNNNNNNNNNNNNN")
 
-            self.paint(int((self.canvas_width / 2)) + descretize_unit * at_point,
-                       (int(self.canvas_height / 2) - self.signal[at_point] * convolution_diagram_unit), at_point)
-        if  self.signal[at_point] is not None:
-            print("value", self.signal[at_point],
-                  (int(self.canvas_height / 2) - self.signal[at_point] * convolution_diagram_unit))
+            self.paint(int((self.canvas_width / 2)) + descretize_unit * (at_point),
+                       (int(self.canvas_height / 2) - self.signal[at_point + l] * convolution_diagram_unit), at_point)
+        # if self.signal[at_point] is not None:
+        #     print("value", self.signal[at_point],
+        #           (int(self.canvas_height / 2) - self.signal[at_point] * convolution_diagram_unit))
+
+    def do_conv_at(self, t):
+        l = len(self.producter.shifter.signal1)
+        sig1 = self.producter.shifter.signal1
+        sig2 = self.producter.shifter.signal2
+        val = 0
+        for i in range(l):
+            idx = i + t
+            numer = lambda a, sig: ((int(canvas_height / 2) - sig[a]) / unit)
+            if idx >= 0 and idx < l:
+                val += numer(i, sig1) * numer(idx, sig2)
+        return val
+
+    def do_all_conv(self):
+        l = len(self.producter.shifter.signal1)
+        for t in range(-1 * l, l):
+            self.signal[l + t] = self.do_conv_at(t)
 
     def is_on_axis(self, x, y):
         if x == int(self.canvas_width / 2) or y == int(self.canvas_height / 2):
@@ -82,9 +102,6 @@ class ConvolutionCanvas():
                 self.signal_ovals[idx].append(
                     self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color, outline=self.signal_color))
         # self.signal[idx] = y
-
-
-
 
     def reset(self):
         for i in range(len(self.signal)):

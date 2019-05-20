@@ -52,7 +52,13 @@ class SignalShifter():
                            i,
                            signal_idx=1)
             self.pc.update()
+
             self.cc.update(int(self.total_shift / descretize_unit))
+
+    # def do_all_convs(self):
+    # l = len(self.signal2)
+    # for i in range(-1 * l, l):
+    #     self.cc.update(l)
 
     def Button_lis(self, event):
         if self.state is None:
@@ -92,7 +98,8 @@ class SignalShifter():
         self.previous_shift = 0
         for i, sing in enumerate(self.signal1):
             print("Hey there")
-            self.paint(i * descretize_unit + self.canvas_width / 4, sing, i, signal_idx=1, color="blue")
+            self.paint(i * descretize_unit + int((self.canvas_width / 2) - (canvas_width / 2)), sing, i, signal_idx=1,
+                       color="blue")
         for i, sing in enumerate(self.signal2):
             self.paint(i * descretize_unit + int((self.canvas_width / 2) - (canvas_width / 2)), sing, i, signal_idx=2,
                        color="red")
@@ -109,14 +116,14 @@ class SignalShifter():
                     x2, y2 = (index + 1), (i + 1)
                     # print("index", index)
                     self.signal1_ovals[idx].append(
-                        self.w.create_oval(x1, y1, x2, y2, fill="red"))
+                        self.w.create_oval(x1, y1, x2, y2, fill="red", outline="red"))
             else:
                 for i in range(int(canvas_height / 2), int(y)):
                     x1, y1 = (index - 1), (i - 1)
                     x2, y2 = (index + 1), (i + 1)
                     # print("index", index)
                     self.signal1_ovals[idx].append(
-                        self.w.create_oval(x1, y1, x2, y2, fill="red"))
+                        self.w.create_oval(x1, y1, x2, y2, fill="red", outline="red"))
             # self.signal1[idx] = y
 
         else:
@@ -130,14 +137,14 @@ class SignalShifter():
                     x2, y2 = (index + 1), (i + 1)
                     # print("index", index)
                     self.signal2_ovals[idx].append(
-                        self.w.create_oval(x1, y1, x2, y2, fill="blue"))
+                        self.w.create_oval(x1, y1, x2, y2, fill="blue", outline="blue"))
             else:
                 for i in range(int(canvas_height / 2), int(y)):
                     x1, y1 = (index - 1), (i - 1)
                     x2, y2 = (index + 1), (i + 1)
                     # print("index", index)
                     self.signal2_ovals[idx].append(
-                        self.w.create_oval(x1, y1, x2, y2, fill="blue"))
+                        self.w.create_oval(x1, y1, x2, y2, fill="blue", outline="blue"))
             # self.signal2[idx] = y
 
     def reset(self):
@@ -150,5 +157,3 @@ class SignalShifter():
             if self.signal2_ovals[i] is not None:
                 for ov in self.signal2_ovals[i]:
                     self.w.delete(ov)
-
-

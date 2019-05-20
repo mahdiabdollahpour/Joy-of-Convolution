@@ -71,7 +71,7 @@ class SignalCanvas():
                     self.w.create_oval(i - 1, j - 1, i + 1, j + 1, fill="#fff")
                     # self.paint(i, j, )
 
-    def paint(self, x, y, color="#476042"):
+    def paint(self, x, y):
         index = descretize_unit * int(x / descretize_unit)
         for ov in self.signal_ovals[int(index / descretize_unit)]:
             self.w.delete(ov)
@@ -82,14 +82,14 @@ class SignalCanvas():
                 x2, y2 = (index + 1), (i + 1)
                 # print("index", index)
                 self.signal_ovals[int(index / descretize_unit)].append(
-                    self.w.create_oval(x1, y1, x2, y2, fill="#fff"))
+                    self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color, outline=self.signal_color))
         else:
             for i in range(int(canvas_height / 2), int(y)):
                 x1, y1 = (index - 1), (i - 1)
                 x2, y2 = (index + 1), (i + 1)
                 # print("index", index)
                 self.signal_ovals[int(index / descretize_unit)].append(
-                    self.w.create_oval(x1, y1, x2, y2, fill="#000"))
+                    self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color, outline=self.signal_color))
         self.signal[int(index / descretize_unit)] = y
 
     def ramp(self, length=10, height=10):
