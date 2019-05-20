@@ -78,7 +78,7 @@ class SignalCanvas():
         x1, y1 = (x - 1), (y - 1)
         x2, y2 = (x + 1), (y + 1)
         self.signal[x - 1] = y
-        self.signal_ovals[x - 1] = self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color)
+        self.signal_ovals[x - 1] = self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color, outline=self.signal_color)
 
     def ramp(self, length=40):
         for i in range(self.canvas_width):
@@ -97,8 +97,6 @@ class SignalCanvas():
                 self.paint(i, self.canvas_height / 2 - ((i + 3) % length))
             else:
                 self.paint(i, self.canvas_height / 2 - (((length - i - 3) % length)))
-
-
 
     def reset(self):
         ## TODO: clear value

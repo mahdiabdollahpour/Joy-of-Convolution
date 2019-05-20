@@ -84,7 +84,7 @@ class SignalShifter():
         self.previous_shift = 0
         for i, sing in enumerate(self.signal1):
             print("Hey there")
-            self.paint(i + self.canvas_width / 4, sing, i, signal_idx=1, color="blue")
+            self.paint(i + int((self.canvas_width / 2) - (canvas_width / 2)), sing, i, signal_idx=1, color="blue")
         for i, sing in enumerate(self.signal2):
             self.paint(i + int((self.canvas_width / 2) - (canvas_width / 2)), sing, i, signal_idx=2, color="red")
 
@@ -96,14 +96,14 @@ class SignalShifter():
 
             x1, y1 = (x - 1), (y - 1)
             x2, y2 = (x + 1), (y + 1)
-            self.signal1_ovals[index] = self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color)
+            self.signal1_ovals[index] = self.w.create_oval(x1, y1, x2, y2, fill="red", outline="red")
 
         else:
             if self.signal2_ovals[index] is not None:
                 self.w.delete(self.signal2_ovals[index])
             x1, y1 = (x - 1), (y - 1)
             x2, y2 = (x + 1), (y + 1)
-            self.signal2_ovals[index] = self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color)
+            self.signal2_ovals[index] = self.w.create_oval(x1, y1, x2, y2, fill="blue", outline="blue")
 
     def reset(self):
         for index in range(self.canvas_width):

@@ -23,7 +23,6 @@ class Example(Frame):
 
         self.initUI()
 
-
     def reset(self):
         self.c1.reset()
         self.c2.reset()
@@ -34,10 +33,11 @@ class Example(Frame):
     def callback(self):
         ## TODO : reverse the signal
         temp = self.c1.signal.copy()
-        for i in range(len(temp)):
-            self.ssh.signal1[i] = temp[len(temp) - i - 1]
+        for i in range(1, len(temp)):
+            self.ssh.signal1[i] = temp[len(temp) - i]
         self.ssh.signal2 = self.c2.signal
         self.ssh.plot()
+        self.cc.do_all_conv()
         print("applied")
         # self.ssh.create_canvas(self.master)
 
@@ -86,12 +86,12 @@ class Example(Frame):
 
         step2.place(x=canvas_width + int((buttons_padding - 5) * canvas_width / buttons_padding), y=0)
         ramp2.place(x=canvas_width + int((buttons_padding - 5) * canvas_width / buttons_padding),
-                   y=int(canvas_height / 4))
+                    y=int(canvas_height / 4))
         triangle2.place(x=canvas_width + int((buttons_padding - 5) * canvas_width / buttons_padding),
-                   y=2 * int(canvas_height / 4))
+                        y=2 * int(canvas_height / 4))
 
-        reset_b.place(x=canvas_width + int(canvas_width / 2.5)   , y=2 * int(canvas_height / 4))
-        b.place(x=canvas_width + int(canvas_width / 2.5)   , y=1 * int(canvas_height / 4))
+        reset_b.place(x=canvas_width + int(canvas_width / 2.5), y=2 * int(canvas_height / 4))
+        b.place(x=canvas_width + int(canvas_width / 2.5), y=1 * int(canvas_height / 4))
         # b.pack()
 
     # def minsize(self):
@@ -102,7 +102,7 @@ def main():
     root = Tk()
     # root.geometry("500x550+450+300")
     root.geometry(str(int(large_canvas_width_coef * canvas_width)) + "x" + (
-        str(int(3 * canvas_height + conv_canvas_height_coef * canvas_height ))))
+        str(int(3 * canvas_height + conv_canvas_height_coef * canvas_height))))
 
     app = Example()
     root.mainloop()
