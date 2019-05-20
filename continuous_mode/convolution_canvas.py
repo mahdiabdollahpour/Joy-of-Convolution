@@ -17,6 +17,7 @@ class ConvolutionCanvas():
         self.flag = [False for i in range(self.canvas_width)]
         self.signal = [0 for i in range(self.canvas_width)]
         self.state = None
+        self.last_point = 0
 
     def sum(self):
         res = 0
@@ -26,10 +27,16 @@ class ConvolutionCanvas():
         return res
 
     def update(self, at_point):
-        self.plot_conved_at_point(at_point)
+        if at_point > self.last_point:
+            for i in range(self.last_point, at_point):
+                self.plot_conved_at_point(i)
+        else:
+            for i in range(at_point, self.last_point):
+                self.plot_conved_at_point(i)
+        self.last_point = at_point
 
     def plot_conved_at_point(self, at_point):
-        print(at_point,self.signal)
+        print(at_point, self.signal)
         if self.flag[at_point] is False:
             l = len(self.producter.shifter.signal1)
 
