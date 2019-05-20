@@ -91,7 +91,22 @@ class SignalShifter():
                 if (self.is_on_axis(i, j)):
                     # print('hkj')
                     self.w.create_oval(i - 1, j - 1, i + 1, j + 1, fill="#fff")
-                    # self.paint(i, j, )
+                     # self.paint(i, j, )
+        self.paint_scales()
+
+    def paint_scales(self, length1=10):
+        h_zero = int(self.canvas_height / 2)
+        w_zero = int(self.canvas_width / 2)
+        hh = int(self.canvas_height / (2 * unit))
+        for j in range(-1 * hh, hh + 1):
+            for i in range(int(-1 * length1 / 2), int(length1 / 2)):
+                self.w.create_oval(w_zero + i, h_zero - j * unit, w_zero + i + 1,
+                                   h_zero - j * unit + 1, fill=scale_color,
+                                   outline=scale_color)
+                self.w.create_oval(w_zero + i, h_zero + j * unit, w_zero + i + 1,
+                                   h_zero + j * unit + 1, fill=scale_color,
+                                   outline=scale_color)
+
 
     def plot(self):
         self.current_shift = 0
