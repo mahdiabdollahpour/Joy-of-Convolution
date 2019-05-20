@@ -15,6 +15,7 @@ class ConvolutionCanvas():
         self.signal_ovals = [None for i in range(self.canvas_width)]
         # self.signal = [int(canvas_height / 2) for i in range(self.canvas_width)]
         self.flag = [False for i in range(self.canvas_width)]
+
         self.signal = [0 for i in range(self.canvas_width)]
         self.state = None
         self.last_point = 0
@@ -88,6 +89,27 @@ class ConvolutionCanvas():
                     # print('hkj')
                     self.w.create_oval(i - 1, j - 1, i + 1, j + 1, fill="#fff")
                     # self.paint(i, j, )
+        self.paint_scales()
+
+    def paint_scales(self, length1=10, length2=10, width_unit=40):
+        h_zero = int(self.canvas_height / 2)
+        w_zero = int(self.canvas_width / 2)
+        hh = int(self.canvas_height / (2 * convolution_diagram_unit))
+        for j in range(-1 * hh, hh + 1):
+            for i in range(int(-1 * length1 / 2), int(length1 / 2)):
+                self.w.create_oval(w_zero + i, h_zero - j * convolution_diagram_unit, w_zero + i + 1,
+                                   h_zero - j * convolution_diagram_unit + 1, fill=scale_color,
+                                   outline=scale_color)
+                self.w.create_oval(w_zero + i, h_zero + j * convolution_diagram_unit, w_zero + i + 1,
+                                   h_zero + j * convolution_diagram_unit + 1, fill=scale_color,
+                                   outline=scale_color)
+
+        ww = int(self.canvas_width / (2 * width_unit))
+        for i in range(-1 * ww, ww + 1):
+            for j in range(int(-1 * length2 / 2), int(length2 / 2)):
+                self.w.create_oval(w_zero + width_unit * i - 1, h_zero + j - 1, w_zero + width_unit * i + 1,
+                                   h_zero + j + 1, fill=scale_color,
+                                   outline=scale_color)
 
     def paint(self, x, y, index):
         if self.signal_ovals[index] is not None:
@@ -98,7 +120,9 @@ class ConvolutionCanvas():
         self.signal_ovals[index] = self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color, outline=self.signal_color)
 
     def reset(self):
+        self.flag = [False for i in range(self.canvas_width)]
+        self.last_point = 0
         for index in range(self.canvas_width):
             if self.signal_ovals[index] is not None:
                 self.w.delete(self.signal_ovals[index])
-            self.signal[index] = None
+            self.signal[index] = 0

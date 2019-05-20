@@ -16,6 +16,7 @@ class ConvolutionCanvas():
         # self.signal = [int(canvas_height / 2) for i in range(self.canvas_width)]
         self.signal = [0 for i in range(len(self.producter.signal))]
         self.flag = [False for i in range(len(self.producter.signal))]
+
         self.state = None
         self.last_point = 0
 
@@ -111,8 +112,10 @@ class ConvolutionCanvas():
         # self.signal[idx] = y
 
     def reset(self):
+        self.flag = [False for i in range(len(self.producter.signal))]
+        self.last_point = 0
         for i in range(len(self.signal)):
             if self.signal_ovals[i] is not None:
-                self.signal[i] = None
+                self.signal[i] = 0
                 for ov in self.signal_ovals[i]:
                     self.w.delete(ov)

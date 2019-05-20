@@ -69,7 +69,23 @@ class SignalCanvas():
                 if (self.is_on_axis(i, j)):
                     # print('hkj')
                     self.w.create_oval(i - 1, j - 1, i + 1, j + 1, fill="#fff")
-                    # self.paint(i, j, )
+        self.paint_scales()  # self.paint(i, j, )
+
+    def paint_scales(self, length1=10, length2=10, width_unit=30):
+        h_zero = int(self.canvas_height / 2)
+        w_zero = int(self.canvas_width / 2)
+        for i in range(int(-1 * length1 / 2), int(length1 / 2)):
+            self.w.create_oval(w_zero + i - 1, h_zero - unit - 1, w_zero + i + 1, h_zero - unit + 1, fill=scale_color,
+                               outline=scale_color)
+            self.w.create_oval(w_zero + i - 1, h_zero + unit - 1, w_zero + i + 1, h_zero + unit + 1, fill=scale_color,
+                               outline=scale_color)
+
+        ww = int(self.canvas_width / (2 * width_unit))
+        for i in range(-1 * ww, ww + 1):
+            for j in range(int(-1 * length2 / 2), int(length2 / 2)):
+                self.w.create_oval(w_zero + width_unit * i - 1, h_zero + j - 1, w_zero + width_unit * i + 1,
+                                   h_zero + j + 1, fill=scale_color,
+                                   outline=scale_color)
 
     def paint(self, x, y, color="#476042"):
         if self.signal_ovals[x - 1] is not None:

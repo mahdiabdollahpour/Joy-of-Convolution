@@ -3,7 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="43f07298-7eba-4837-aded-1449d3df5176" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/continuous_mode/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/continuous_mode/constants.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/continuous_mode/convolution_canvas.py" beforeDir="false" afterPath="$PROJECT_DIR$/continuous_mode/convolution_canvas.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/continuous_mode/product_canvas.py" beforeDir="false" afterPath="$PROJECT_DIR$/continuous_mode/product_canvas.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/continuous_mode/signal_canvas.py" beforeDir="false" afterPath="$PROJECT_DIR$/continuous_mode/signal_canvas.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/continuous_mode/signal_shifter.py" beforeDir="false" afterPath="$PROJECT_DIR$/continuous_mode/signal_shifter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/descrete_mode/constants_d.py" beforeDir="false" afterPath="$PROJECT_DIR$/descrete_mode/constants_d.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/descrete_mode/convolution_canvas_d.py" beforeDir="false" afterPath="$PROJECT_DIR$/descrete_mode/convolution_canvas_d.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -12,48 +18,48 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/ConvolutionVisualization$continuous.coverage" NAME="continuous Coverage Results" MODIFIED="1558364553554" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/continuous_mode" />
-    <SUITE FILE_PATH="coverage/ConvolutionVisualization$descrete.coverage" NAME="descrete Coverage Results" MODIFIED="1558364646722" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/descrete_mode" />
+    <SUITE FILE_PATH="coverage/ConvolutionVisualization$continuous.coverage" NAME="continuous Coverage Results" MODIFIED="1558381006860" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/continuous_mode" />
+    <SUITE FILE_PATH="coverage/ConvolutionVisualization$descrete.coverage" NAME="descrete Coverage Results" MODIFIED="1558372303186" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/descrete_mode" />
     <SUITE FILE_PATH="coverage/ConvolutionVisualization$main.coverage" NAME="main Coverage Results" MODIFIED="1558201841688" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="150541689">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="19" />
+          <entry key="project.closed" value="20" />
           <entry key="project.open.time.0" value="6" />
           <entry key="project.open.time.1" value="2" />
           <entry key="project.open.time.10" value="5" />
-          <entry key="project.open.time.11" value="1" />
+          <entry key="project.open.time.11" value="2" />
           <entry key="project.open.time.13" value="2" />
           <entry key="project.open.time.14" value="1" />
           <entry key="project.open.time.18" value="1" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.8" value="2" />
-          <entry key="project.opened" value="21" />
+          <entry key="project.opened" value="22" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="37" />
+          <entry key="py" value="40" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="37" />
+          <entry key="Python" value="40" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="35" />
-          <entry key="py" value="7173" />
-          <entry key="txt" value="198" />
+          <entry key="py" value="7495" />
+          <entry key="txt" value="206" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="233" />
-          <entry key="Python" value="7173" />
+          <entry key="PLAIN_TEXT" value="241" />
+          <entry key="Python" value="7495" />
         </counts>
       </usages-collector>
     </session>
@@ -63,25 +69,40 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/continuous_mode/convolution_canvas.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="125">
-              <caret line="35" column="34" selection-start-line="35" selection-start-column="34" selection-end-line="35" selection-end-column="34" />
+            <state relative-caret-position="225">
+              <caret line="100" column="80" selection-start-line="100" selection-start-column="80" selection-end-line="100" selection-end-column="80" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
-                <marker date="1558364533403" expanded="true" signature="732:738" ph="..." />
-                <marker date="1558364533403" expanded="true" signature="1022:1222" ph="..." />
+                <marker date="1558380854256" expanded="true" signature="733:739" ph="..." />
+                <marker date="1558380854256" expanded="true" signature="4510:4515" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/descrete_mode/convolution_canvas_d.py">
+        <entry file="file://$PROJECT_DIR$/continuous_mode/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="134">
-              <caret line="37" column="12" lean-forward="true" selection-start-line="36" selection-start-column="12" selection-end-line="37" selection-end-column="12" />
-              <folding>
-                <element signature="e#0#21#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="57">
+              <caret line="3" column="11" selection-start-line="3" selection-start-column="11" selection-end-line="3" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/descrete_mode/constants_d.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="114">
+              <caret line="6" selection-start-line="6" selection-end-line="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/continuous_mode/constants.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="57">
+              <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -89,10 +110,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/continuous_mode/product_canvas.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="461">
-              <caret line="61" column="37" selection-start-line="61" selection-start-column="37" selection-end-line="61" selection-end-column="37" />
+            <state relative-caret-position="282">
+              <caret line="67" column="36" selection-start-line="67" selection-start-column="36" selection-end-line="67" selection-end-column="36" />
               <folding>
-                <marker date="1558201319506" expanded="true" signature="2109:2110" ph="..." />
+                <marker date="1558380520151" expanded="true" signature="3088:3089" ph="..." />
               </folding>
             </state>
           </provider>
@@ -101,8 +122,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/continuous_mode/continuous.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
-              <caret line="38" column="19" lean-forward="true" selection-start-line="38" selection-start-column="19" selection-end-line="38" selection-end-column="19" />
+            <state relative-caret-position="494">
+              <caret line="38" column="19" selection-start-line="38" selection-start-column="19" selection-end-line="38" selection-end-column="19" />
               <folding>
                 <element signature="e#0#54#0" expanded="true" />
                 <marker date="1558364308168" expanded="true" signature="734:861" ph="..." />
@@ -114,11 +135,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/continuous_mode/signal_canvas.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="80" column="119" selection-start-line="80" selection-start-column="119" selection-end-line="80" selection-end-column="119" />
+            <state relative-caret-position="282">
+              <caret line="83" column="38" selection-start-line="83" selection-start-column="38" selection-end-line="83" selection-end-column="38" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
-                <marker date="1558363781289" expanded="true" signature="1261:1382" ph="..." />
+                <marker date="1558380493238" expanded="true" signature="1261:1382" ph="..." />
               </folding>
             </state>
           </provider>
@@ -127,10 +148,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/continuous_mode/signal_shifter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="45" column="28" lean-forward="true" selection-start-line="45" selection-start-column="28" selection-end-line="45" selection-end-column="28" />
+            <state relative-caret-position="339">
+              <caret line="90" column="36" selection-start-line="90" selection-start-column="36" selection-end-line="90" selection-end-column="36" />
               <folding>
-                <marker date="1558364347992" expanded="true" signature="87:88" ph="..." />
+                <marker date="1558380520127" expanded="true" signature="87:88" ph="..." />
               </folding>
             </state>
           </provider>
@@ -168,15 +189,17 @@
         <option value="$PROJECT_DIR$/signal_shifter.py" />
         <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/convolution_canvas.py" />
-        <option value="$PROJECT_DIR$/descrete_mode/constants_d.py" />
         <option value="$PROJECT_DIR$/descrete_mode/product_canvas_d.py" />
-        <option value="$PROJECT_DIR$/descrete_mode/convolution_canvas_d.py" />
         <option value="$PROJECT_DIR$/descrete_mode/signal_shifter_d.py" />
         <option value="$PROJECT_DIR$/descrete_mode/descrete.py" />
         <option value="$PROJECT_DIR$/descrete_mode/signal_canvas_d.py" />
-        <option value="$PROJECT_DIR$/continuous_mode/signal_canvas.py" />
         <option value="$PROJECT_DIR$/continuous_mode/continuous.py" />
+        <option value="$PROJECT_DIR$/descrete_mode/convolution_canvas_d.py" />
+        <option value="$PROJECT_DIR$/descrete_mode/constants_d.py" />
+        <option value="$PROJECT_DIR$/continuous_mode/signal_canvas.py" />
+        <option value="$PROJECT_DIR$/continuous_mode/product_canvas.py" />
         <option value="$PROJECT_DIR$/continuous_mode/signal_shifter.py" />
+        <option value="$PROJECT_DIR$/continuous_mode/constants.py" />
         <option value="$PROJECT_DIR$/continuous_mode/convolution_canvas.py" />
       </list>
     </option>
@@ -198,6 +221,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -219,7 +243,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -247,7 +270,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.descrete">
+  <component name="RunManager" selected="Python.continuous">
     <configuration name="continuous" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="ConvolutionVisualization" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -321,8 +344,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.descrete" />
         <item itemvalue="Python.continuous" />
+        <item itemvalue="Python.descrete" />
         <item itemvalue="Python.main" />
       </list>
     </recent_temporary>
@@ -373,19 +396,26 @@
       <option name="project" value="LOCAL" />
       <updated>1558364389697</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="descrete conv edited and is good now">
+      <created>1558364698863</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1558364698863</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18947369" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19271255" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3291815" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.24377224" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.17615658" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3985765" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -416,23 +446,10 @@
     <MESSAGE value="pre defined signals added" />
     <MESSAGE value="descrete convlolution fixed" />
     <MESSAGE value="cont conv edited and is good now" />
-    <option name="LAST_COMMIT_MESSAGE" value="cont conv edited and is good now" />
+    <MESSAGE value="descrete conv edited and is good now" />
+    <option name="LAST_COMMIT_MESSAGE" value="descrete conv edited and is good now" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/continuous_mode/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="3" column="11" selection-start-line="3" selection-start-column="11" selection-end-line="3" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/continuous_mode/constants.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" selection-start-line="5" selection-end-line="5" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/descrete_mode/utils_d.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
@@ -447,20 +464,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/descrete_mode/constants_d.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="3" column="28" selection-start-line="3" selection-start-column="28" selection-end-line="3" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/descrete_mode/product_canvas_d.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
           <caret line="31" column="32" lean-forward="true" selection-start-line="31" selection-start-column="32" selection-end-line="31" selection-end-column="95" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -468,11 +475,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1091">
           <caret line="100" column="44" selection-start-line="100" selection-start-column="44" selection-end-line="100" selection-end-column="44" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-            <marker date="1558362968077" expanded="true" signature="2164:2169" ph="..." />
-            <marker date="1558362968077" expanded="true" signature="2192:2259" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -480,9 +482,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-133">
           <caret line="35" column="25" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#54#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -490,47 +489,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="44">
           <caret line="19" column="42" lean-forward="true" selection-start-line="19" selection-start-column="42" selection-end-line="19" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/continuous_mode/product_canvas.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="461">
-          <caret line="61" column="37" selection-start-line="61" selection-start-column="37" selection-end-line="61" selection-end-column="37" />
-          <folding>
-            <marker date="1558201319506" expanded="true" signature="2109:2110" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/continuous_mode/signal_canvas.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="80" column="119" selection-start-line="80" selection-start-column="119" selection-end-line="80" selection-end-column="119" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-            <marker date="1558363781289" expanded="true" signature="1261:1382" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/descrete_mode/convolution_canvas_d.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="37" column="12" lean-forward="true" selection-start-line="36" selection-start-column="12" selection-end-line="37" selection-end-column="12" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/continuous_mode/continuous.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="38" column="19" lean-forward="true" selection-start-line="38" selection-start-column="19" selection-end-line="38" selection-end-column="19" />
+        <state relative-caret-position="494">
+          <caret line="38" column="19" selection-start-line="38" selection-start-column="19" selection-end-line="38" selection-end-column="19" />
           <folding>
             <element signature="e#0#54#0" expanded="true" />
             <marker date="1558364308168" expanded="true" signature="734:861" ph="..." />
@@ -538,24 +503,76 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/descrete_mode/constants_d.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" selection-start-line="6" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/continuous_mode/product_canvas.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="67" column="36" selection-start-line="67" selection-start-column="36" selection-end-line="67" selection-end-column="36" />
+          <folding>
+            <marker date="1558380520151" expanded="true" signature="3088:3089" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/continuous_mode/signal_canvas.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="83" column="38" selection-start-line="83" selection-start-column="38" selection-end-line="83" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+            <marker date="1558380493238" expanded="true" signature="1261:1382" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/continuous_mode/signal_shifter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="45" column="28" lean-forward="true" selection-start-line="45" selection-start-column="28" selection-end-line="45" selection-end-column="28" />
+        <state relative-caret-position="339">
+          <caret line="90" column="36" selection-start-line="90" selection-start-column="36" selection-end-line="90" selection-end-column="36" />
           <folding>
-            <marker date="1558364347992" expanded="true" signature="87:88" ph="..." />
+            <marker date="1558380520127" expanded="true" signature="87:88" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/descrete_mode/convolution_canvas_d.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="572">
+          <caret line="115" column="8" lean-forward="true" selection-start-line="115" selection-start-column="8" selection-end-line="115" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/continuous_mode/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" column="11" selection-start-line="3" selection-start-column="11" selection-end-line="3" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/continuous_mode/constants.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/continuous_mode/convolution_canvas.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="35" column="34" selection-start-line="35" selection-start-column="34" selection-end-line="35" selection-end-column="34" />
+        <state relative-caret-position="225">
+          <caret line="100" column="80" selection-start-line="100" selection-start-column="80" selection-end-line="100" selection-end-column="80" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
-            <marker date="1558364533403" expanded="true" signature="732:738" ph="..." />
-            <marker date="1558364533403" expanded="true" signature="1022:1222" ph="..." />
+            <marker date="1558380854256" expanded="true" signature="733:739" ph="..." />
+            <marker date="1558380854256" expanded="true" signature="4510:4515" ph="..." />
           </folding>
         </state>
       </provider>
