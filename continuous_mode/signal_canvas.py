@@ -96,26 +96,39 @@ class SignalCanvas():
         self.signal[x - 1] = y
         self.signal_ovals[x - 1] = self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color, outline=self.signal_color)
 
-    def ramp(self, length=40):
+    def ramp(self, slope=0.5):
+        self.reset()
         for i in range(self.canvas_width):
-            self.paint(i, (length / 2 - (((i + 3) % length))) + self.canvas_height / 2)
+            if i > canvas_width / 2:
+                self.paint(i, (-1 * slope * ((i % int(canvas_width / 2)))) + self.canvas_height / 2)
+            else:
+                self.paint(i, self.canvas_height / 2)
 
     def step(self, length=40, const=25):
+        self.reset()
+
         for i in range(self.canvas_width):
-            if ((i + 3) % length) < length / 2:
+            if i < canvas_width / 2:
                 self.paint(i, self.canvas_height / 2)
             else:
                 self.paint(i, self.canvas_height / 2 - const)
 
-    def triangle(self, length=80):
-        for i in range(self.canvas_width):
-            if ((i + 3) % length) < length / 2:
-                self.paint(i, self.canvas_height / 2 - ((i + 3) % length))
+    def pulse(self, const=25):
+        self.reset()
+        w = self.canvas_width
+        h = self.canvas_height
+        for i in range(w):
+            if i > (w / 3) and i < (w / 2):
+                self.paint(i, h / 2 - const)
+                # print("dkjfdkfjlkdf")
+            elif i > (w / 2) and i < (w * (2 / 3)):
+                self.paint(i, h / 2 - const)
             else:
-                self.paint(i, self.canvas_height / 2 - (((length - i - 3) % length)))
+                self.paint(i, h / 2)
 
     def reset(self):
         ## TODO: clear value
         for index in range(self.canvas_width):
+            self.signal[index] = self.canvas_height / 2
             if self.signal_ovals[index] is not None:
                 self.w.delete(self.signal_ovals[index])

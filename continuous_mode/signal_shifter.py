@@ -5,8 +5,9 @@ from tkinter import *
 
 class SignalShifter():
 
-    def __init__(self, canvas_width_, signal_color, signal1, signal2, product_canvas, conv_canvas):
-        self.signal_color = signal_color
+    def __init__(self, canvas_width_, signal_color1, signal_color2, signal1, signal2, product_canvas, conv_canvas):
+        self.signal_color1 = signal_color1
+        self.signal_color2 = signal_color2
         self.canvas_width = canvas_width_
         self.canvas_height = canvas_height
         self.pc = product_canvas
@@ -77,7 +78,8 @@ class SignalShifter():
                 if (self.is_on_axis(i, j)):
                     # print('hkj')
                     self.w.create_oval(i - 1, j - 1, i + 1, j + 1, fill="#fff")
-        self.paint_scales()           # self.paint(i, j, )
+        self.paint_scales()  # self.paint(i, j, )
+
     def paint_scales(self, length1=10, length2=10, width_unit=40):
         h_zero = int(self.canvas_height / 2)
         w_zero = int(self.canvas_width / 2)
@@ -88,7 +90,7 @@ class SignalShifter():
                                outline=scale_color)
 
         ww = int(self.canvas_width / (2 * width_unit))
-        for i in range(-1 * ww, ww+1):
+        for i in range(-1 * ww, ww + 1):
             for j in range(int(-1 * length2 / 2), int(length2 / 2)):
                 self.w.create_oval(w_zero + width_unit * i - 1, h_zero + j - 1, w_zero + width_unit * i + 1,
                                    h_zero + j + 1, fill=scale_color,
@@ -99,11 +101,11 @@ class SignalShifter():
         self.previous_shift = 0
         for i, sing in enumerate(self.signal1):
             print("Hey there")
-            self.paint(i + int((self.canvas_width / 2) - (canvas_width / 2)), sing, i, signal_idx=1, color="blue")
+            self.paint(i + int((self.canvas_width / 2) - (canvas_width / 2)), sing, i, signal_idx=1)
         for i, sing in enumerate(self.signal2):
-            self.paint(i + int((self.canvas_width / 2) - (canvas_width / 2)), sing, i, signal_idx=2, color="red")
+            self.paint(i + int((self.canvas_width / 2) - (canvas_width / 2)), sing, i, signal_idx=2)
 
-    def paint(self, x, y, index, signal_idx, color="#476042"):
+    def paint(self, x, y, index, signal_idx):
         if signal_idx == 1:
 
             if self.signal1_ovals[index] is not None:
@@ -111,20 +113,24 @@ class SignalShifter():
 
             x1, y1 = (x - 1), (y - 1)
             x2, y2 = (x + 1), (y + 1)
-            self.signal1_ovals[index] = self.w.create_oval(x1, y1, x2, y2, fill="red", outline="red")
+            self.signal1_ovals[index] = self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color1,
+                                                           outline=self.signal_color1)
 
         else:
             if self.signal2_ovals[index] is not None:
                 self.w.delete(self.signal2_ovals[index])
             x1, y1 = (x - 1), (y - 1)
             x2, y2 = (x + 1), (y + 1)
-            self.signal2_ovals[index] = self.w.create_oval(x1, y1, x2, y2, fill="blue", outline="blue")
+            self.signal2_ovals[index] = self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color2,
+                                                           outline=self.signal_color2)
 
     def reset(self):
         for index in range(self.canvas_width):
+            # self.signal1[index] = self.canvas_height / 2
             if self.signal1_ovals[index] is not None:
                 self.w.delete(self.signal1_ovals[index])
 
         for index in range(self.canvas_width):
+            # self.signal2[index] = self.canvas_height / 2
             if self.signal2_ovals[index] is not None:
                 self.w.delete(self.signal2_ovals[index])

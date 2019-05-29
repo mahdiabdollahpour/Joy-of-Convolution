@@ -65,7 +65,7 @@ class ProductCanvas():
                                outline=scale_color)
 
         ww = int(self.canvas_width / (2 * width_unit))
-        for i in range(-1 * ww, ww+1):
+        for i in range(-1 * ww, ww + 1):
             for j in range(int(-1 * length2 / 2), int(length2 / 2)):
                 self.w.create_oval(w_zero + width_unit * i - 1, h_zero + j - 1, w_zero + width_unit * i + 1,
                                    h_zero + j + 1, fill=scale_color,
@@ -77,9 +77,10 @@ class ProductCanvas():
 
         x1, y1 = (x - 1), (y - 1)
         x2, y2 = (x + 1), (y + 1)
-        self.signal_ovals[index] = self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color)
+        self.signal_ovals[index] = self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color, outline=self.signal_color)
 
     def reset(self):
         for index in range(self.canvas_width):
+            self.signal[index] = 0
             if self.signal_ovals[index] is not None:
                 self.w.delete(self.signal_ovals[index])

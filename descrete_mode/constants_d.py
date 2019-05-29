@@ -7,3 +7,7 @@ buttons_padding = 20
 scale_color = "green"
 
 descretize_unit = 10
+
+
+
+## TODO: remove triangle

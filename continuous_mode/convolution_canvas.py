@@ -123,6 +123,7 @@ class ConvolutionCanvas():
         self.flag = [False for i in range(self.canvas_width)]
         self.last_point = 0
         for index in range(self.canvas_width):
+
             if self.signal_ovals[index] is not None:
                 self.w.delete(self.signal_ovals[index])
             self.signal[index] = 0

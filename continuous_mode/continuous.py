@@ -55,7 +55,8 @@ class Example(Frame):
         self.pc = ProductCanvas(int(large_canvas_width_coef * canvas_width), "red", None)
         self.cc = ConvolutionCanvas(int(large_canvas_width_coef * canvas_width), "blue", self.pc,
                                     conv_canvas_height_coef)
-        self.ssh = SignalShifter(int(large_canvas_width_coef * canvas_width), "blue", self.c1.signal, self.c2.signal,
+        self.ssh = SignalShifter(int(large_canvas_width_coef * canvas_width), self.c1.signal_color,
+                                 self.c2.signal_color, self.c1.signal, self.c2.signal,
                                  self.pc, self.cc)
         self.pc.shifter = self.ssh
         self.cc.create_canvas(self.master)
@@ -64,10 +65,10 @@ class Example(Frame):
         step1 = Button(self.master, text="Step", command=self.c1.step, height=1, width=5)
 
         ramp1 = Button(self.master, text="Ramp", command=self.c1.ramp, height=1, width=5)
-        triangle1 = Button(self.master, text="Traingle", command=self.c1.triangle, height=1, width=5)
+        pulse1 = Button(self.master, text="Pulse", command=self.c1.pulse, height=1, width=5)
         step2 = Button(self.master, text="Step", command=self.c2.step, height=1, width=5)
         ramp2 = Button(self.master, text="Ramp", command=self.c2.ramp, height=1, width=5)
-        triangle2 = Button(self.master, text="Traingle", command=self.c2.triangle, height=1, width=5)
+        pulse2 = Button(self.master, text="Pulse", command=self.c2.pulse, height=1, width=5)
 
         reset_b = Button(self.master, text="Reset", command=self.reset, height=1, width=5)
 
@@ -82,12 +83,12 @@ class Example(Frame):
         self.cc.w.place(x=0, y=3 * canvas_height)
         step1.place(x=canvas_width + int(canvas_width / buttons_padding), y=0)
         ramp1.place(x=canvas_width + int(canvas_width / buttons_padding), y=int(canvas_height / 4))
-        triangle1.place(x=canvas_width + int(canvas_width / buttons_padding), y=2 * int(canvas_height / 4))
+        pulse1.place(x=canvas_width + int(canvas_width / buttons_padding), y=2 * int(canvas_height / 4))
 
         step2.place(x=canvas_width + int((buttons_padding - 5) * canvas_width / buttons_padding), y=0)
         ramp2.place(x=canvas_width + int((buttons_padding - 5) * canvas_width / buttons_padding),
                     y=int(canvas_height / 4))
-        triangle2.place(x=canvas_width + int((buttons_padding - 5) * canvas_width / buttons_padding),
+        pulse2.place(x=canvas_width + int((buttons_padding - 5) * canvas_width / buttons_padding),
                         y=2 * int(canvas_height / 4))
 
         reset_b.place(x=canvas_width + int(canvas_width / 2.5), y=2 * int(canvas_height / 4))
