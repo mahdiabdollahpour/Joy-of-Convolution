@@ -5,8 +5,9 @@ from tkinter import *
 
 class SignalShifter():
 
-    def __init__(self, canvas_width_, signal_color, signal1, signal2, product_canvas, conv_canvas):
-        self.signal_color = signal_color
+    def __init__(self, canvas_width_, signal_color1, signal_color2, signal1, signal2, product_canvas, conv_canvas):
+        self.signal_color1 = signal_color1
+        self.signal_color2 = signal_color2
         self.canvas_width = canvas_width_
         self.canvas_height = canvas_height
         self.pc = product_canvas
@@ -91,7 +92,7 @@ class SignalShifter():
                 if (self.is_on_axis(i, j)):
                     # print('hkj')
                     self.w.create_oval(i - 1, j - 1, i + 1, j + 1, fill="#fff")
-                     # self.paint(i, j, )
+                    # self.paint(i, j, )
         self.paint_scales()
 
     def paint_scales(self, length1=10):
@@ -106,7 +107,6 @@ class SignalShifter():
                 self.w.create_oval(w_zero + i, h_zero + j * unit, w_zero + i + 1,
                                    h_zero + j * unit + 1, fill=scale_color,
                                    outline=scale_color)
-
 
     def plot(self):
         self.current_shift = 0
@@ -131,14 +131,14 @@ class SignalShifter():
                     x2, y2 = (index + 1), (i + 1)
                     # print("index", index)
                     self.signal1_ovals[idx].append(
-                        self.w.create_oval(x1, y1, x2, y2, fill="red", outline="red"))
+                        self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color1, outline=self.signal_color1))
             else:
                 for i in range(int(canvas_height / 2), int(y)):
                     x1, y1 = (index - 1), (i - 1)
                     x2, y2 = (index + 1), (i + 1)
                     # print("index", index)
                     self.signal1_ovals[idx].append(
-                        self.w.create_oval(x1, y1, x2, y2, fill="red", outline="red"))
+                        self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color1, outline=self.signal_color1))
             # self.signal1[idx] = y
 
         else:
@@ -152,14 +152,14 @@ class SignalShifter():
                     x2, y2 = (index + 1), (i + 1)
                     # print("index", index)
                     self.signal2_ovals[idx].append(
-                        self.w.create_oval(x1, y1, x2, y2, fill="blue", outline="blue"))
+                        self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color2, outline=self.signal_color2))
             else:
                 for i in range(int(canvas_height / 2), int(y)):
                     x1, y1 = (index - 1), (i - 1)
                     x2, y2 = (index + 1), (i + 1)
                     # print("index", index)
                     self.signal2_ovals[idx].append(
-                        self.w.create_oval(x1, y1, x2, y2, fill="blue", outline="blue"))
+                        self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color2, outline=self.signal_color2))
             # self.signal2[idx] = y
 
     def reset(self):

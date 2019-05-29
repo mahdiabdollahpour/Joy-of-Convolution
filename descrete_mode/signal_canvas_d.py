@@ -71,6 +71,7 @@ class SignalCanvas():
                     self.w.create_oval(i - 1, j - 1, i + 1, j + 1, fill="#fff")
                     # self.paint(i, j, )
         self.paint_scales()
+
     def paint_scales(self, length1=10):
         h_zero = int(self.canvas_height / 2)
         w_zero = int(self.canvas_width / 2)
@@ -83,7 +84,6 @@ class SignalCanvas():
                 self.w.create_oval(w_zero + i, h_zero + j * unit, w_zero + i + 1,
                                    h_zero + j * unit + 1, fill=scale_color,
                                    outline=scale_color)
-
 
     def paint(self, x, y):
         index = descretize_unit * int(x / descretize_unit)
@@ -106,31 +106,39 @@ class SignalCanvas():
                     self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color, outline=self.signal_color))
         self.signal[int(index / descretize_unit)] = y
 
-    def ramp(self, length=10, height=10):
-        for i in range(len(self.signal)):
-            self.paint(descretize_unit * i, height * (length / 2 - (i % length)) + self.canvas_height / 2)
+    def ramp(self, slope=2):
+        self.reset()
+        w = len(self.signal)
+        for i in range(w):
+            if i > w / 2:
+                self.paint(descretize_unit * i, (-1 * slope * (((2 * i) % int(w)))) + self.canvas_height / 2)
+            else:
+                self.paint(descretize_unit * i, self.canvas_height / 2)
 
     def step(self, length=10, const=40):
+        self.reset()
+        w = len(self.signal)
         for i in range(len(self.signal)):
-            if (i % length) < length / 2:
+            if i < w / 2:
                 self.paint(descretize_unit * i, self.canvas_height / 2)
                 # self.signal[i] = height * (i % length)
             else:
                 self.paint(descretize_unit * i, self.canvas_height / 2 - const)
         print(self.signal)
 
-    def triangle(self, length=10, height=10):
-        for i in range(len(self.signal)):
-            if ((i) % length) < length / 2:
-                self.paint(i * descretize_unit, self.canvas_height / 2 - height * ((i) % length))
+    def pulse(self, length=10, height=10, const=40):
+        w = len(self.signal)
+        for i in range(w):
+            if i < w * 2 / 3 and i > w / 3:
+                self.paint(i * descretize_unit, self.canvas_height / 2 - const)
                 # self.signal[i] = height * (i % length)
             else:
-                self.paint(i * descretize_unit, self.canvas_height / 2 - height * (((length - i) % length)))
+                self.paint(i * descretize_unit, self.canvas_height / 2)
                 # self.signal[i] = height * (((length - i) % length))
 
     def reset(self):
         for i in range(len(self.signal)):
+            self.signal[i] = self.canvas_height / 2
             if self.signal_ovals[i] is not None:
-                self.signal[i] = self.canvas_height / 2
                 for ov in self.signal_ovals[i]:
                     self.w.delete(ov)
