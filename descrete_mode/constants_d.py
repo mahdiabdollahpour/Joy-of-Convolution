@@ -8,6 +8,7 @@ scale_color = "green"
 
 descretize_unit = 10
 
+highlight_color = "yellow"
 
 
 ## TODO: remove triangle
