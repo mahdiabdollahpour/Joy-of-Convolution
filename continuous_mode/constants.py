@@ -1,4 +1,5 @@
 canvas_width = 200
+options_width = 100
 canvas_height = 120
 unit = 20
 # convolution_diagram_unit = 5
