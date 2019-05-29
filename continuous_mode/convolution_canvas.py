@@ -5,7 +5,8 @@ from continuous_mode.utils import *
 
 class ConvolutionCanvas():
 
-    def __init__(self, canvas_width_, signal_color, producter, height_coef):
+    def __init__(self, canvas_width_, signal_color, producter, height_coef, scale_of_unit_of_h):
+        self.hUnitScale = scale_of_unit_of_h
         self.signal_color = signal_color
         self.canvas_width = canvas_width_
         self.canvas_height = int(height_coef * canvas_height)
@@ -48,7 +49,7 @@ class ConvolutionCanvas():
             # print(self.signal[at_point],
             #       (int(self.canvas_height / 2) - self.signal[at_point] * convolution_diagram_unit))
             self.paint(int((self.canvas_width / 2)) + at_point,
-                       (int(self.canvas_height / 2) - self.signal[at_point + l] * convolution_diagram_unit), at_point)
+                       (int(self.canvas_height / 2) - self.signal[at_point + l] / self.hUnitScale), at_point)
 
     def do_conv_at(self, t):
         l = len(self.producter.shifter.signal1)
@@ -60,6 +61,7 @@ class ConvolutionCanvas():
             numer = lambda a, sig: ((int(canvas_height / 2) - sig[a]) / unit)
             if idx >= 0 and idx < l:
                 val += numer(i, sig1) * numer(idx, sig2)
+        val = val * (self.producter.hUnitScale)
         return val
 
     def do_all_conv(self):
@@ -94,14 +96,14 @@ class ConvolutionCanvas():
     def paint_scales(self, length1=10, length2=10, width_unit=40):
         h_zero = int(self.canvas_height / 2)
         w_zero = int(self.canvas_width / 2)
-        hh = int(self.canvas_height / (2 * convolution_diagram_unit))
+        hh = int(self.canvas_height / (2 * unit))
         for j in range(-1 * hh, hh + 1):
             for i in range(int(-1 * length1 / 2), int(length1 / 2)):
-                self.w.create_oval(w_zero + i, h_zero - j * convolution_diagram_unit, w_zero + i + 1,
-                                   h_zero - j * convolution_diagram_unit + 1, fill=scale_color,
+                self.w.create_oval(w_zero + i, h_zero - j * unit, w_zero + i + 1,
+                                   h_zero - j * unit + 1, fill=scale_color,
                                    outline=scale_color)
-                self.w.create_oval(w_zero + i, h_zero + j * convolution_diagram_unit, w_zero + i + 1,
-                                   h_zero + j * convolution_diagram_unit + 1, fill=scale_color,
+                self.w.create_oval(w_zero + i, h_zero + j * unit, w_zero + i + 1,
+                                   h_zero + j * unit + 1, fill=scale_color,
                                    outline=scale_color)
 
         ww = int(self.canvas_width / (2 * width_unit))
@@ -110,6 +112,22 @@ class ConvolutionCanvas():
                 self.w.create_oval(w_zero + width_unit * i - 1, h_zero + j - 1, w_zero + width_unit * i + 1,
                                    h_zero + j + 1, fill=scale_color,
                                    outline=scale_color)
+
+    # def paint_scales(self, length1=10, length2=10, width_unit=30):
+    #     h_zero = int(self.canvas_height / 2)
+    #     w_zero = int(self.canvas_width / 2)
+    #     for i in range(int(-1 * length1 / 2), int(length1 / 2)):
+    #         self.w.create_oval(w_zero + i - 1, h_zero - unit - 1, w_zero + i + 1, h_zero - unit + 1, fill=scale_color,
+    #                            outline=scale_color)
+    #         self.w.create_oval(w_zero + i - 1, h_zero + unit - 1, w_zero + i + 1, h_zero + unit + 1, fill=scale_color,
+    #                            outline=scale_color)
+    #
+    #     ww = int(self.canvas_width / (2 * width_unit))
+    #     for i in range(-1 * ww, ww + 1):
+    #         for j in range(int(-1 * length2 / 2), int(length2 / 2)):
+    #             self.w.create_oval(w_zero + width_unit * i - 1, h_zero + j - 1, w_zero + width_unit * i + 1,
+    #                                h_zero + j + 1, fill=scale_color,
+    #                                outline=scale_color)
 
     def paint(self, x, y, index):
         if self.signal_ovals[index] is not None:

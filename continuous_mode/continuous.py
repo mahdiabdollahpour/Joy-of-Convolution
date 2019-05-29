@@ -48,16 +48,17 @@ class Example(Frame):
         # self.config()
         # Style().configure("TFrame", background="#333")
         self.master.title("Jot of Convolution")
-        self.c1 = SignalCanvas("blue")
+        self.c1 = SignalCanvas("blue", scale_of_unit_of_h=h_unit_scale_signal1)
         self.c1.create_canvas(self.master)
-        self.c2 = SignalCanvas("red")
+        self.c2 = SignalCanvas("red", scale_of_unit_of_h=h_unit_scale_signal2)
         self.c2.create_canvas(self.master)
-        self.pc = ProductCanvas(int(large_canvas_width_coef * canvas_width), "red", None)
+        self.pc = ProductCanvas(int(large_canvas_width_coef * canvas_width), "red", None,
+                                unit_of_scale_of_h=h_unit_scale_producter)
         self.cc = ConvolutionCanvas(int(large_canvas_width_coef * canvas_width), "blue", self.pc,
-                                    conv_canvas_height_coef)
-        self.ssh = SignalShifter(int(large_canvas_width_coef * canvas_width), self.c1.signal_color,
-                                 self.c2.signal_color, self.c1.signal, self.c2.signal,
-                                 self.pc, self.cc)
+                                    conv_canvas_height_coef, scale_of_unit_of_h=h_unit_scale_convolution)
+        self.ssh = SignalShifter(int(large_canvas_width_coef * canvas_width), self.c1,
+                                 self.c2,
+                                 self.pc, self.cc, scale_of_unit_of_h=h_unit_scale_shifter)
         self.pc.shifter = self.ssh
         self.cc.create_canvas(self.master)
         self.pc.create_canvas(self.master)
@@ -89,7 +90,7 @@ class Example(Frame):
         ramp2.place(x=canvas_width + int((buttons_padding - 5) * canvas_width / buttons_padding),
                     y=int(canvas_height / 4))
         pulse2.place(x=canvas_width + int((buttons_padding - 5) * canvas_width / buttons_padding),
-                        y=2 * int(canvas_height / 4))
+                     y=2 * int(canvas_height / 4))
 
         reset_b.place(x=canvas_width + int(canvas_width / 2.5), y=2 * int(canvas_height / 4))
         b.place(x=canvas_width + int(canvas_width / 2.5), y=1 * int(canvas_height / 4))

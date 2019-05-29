@@ -4,7 +4,8 @@ from tkinter import *
 
 
 class ProductCanvas():
-    def __init__(self, canvas_width_, signal_color, shifter):
+    def __init__(self, canvas_width_, signal_color, shifter, unit_of_scale_of_h):
+        self.hUnitScale = unit_of_scale_of_h
         self.shifter = shifter
         self.signal_color = signal_color
         self.canvas_width = canvas_width_
@@ -26,7 +27,8 @@ class ProductCanvas():
                 shifted_value = ((int(canvas_height / 2) - self.shifter.signal1[index]) / unit)
             stable_value = ((int(canvas_height / 2) - self.shifter.signal2[i]) / unit)
             # stable_value = 1
-            self.signal[i] = shifted_value * stable_value
+            self.signal[i] = shifted_value * stable_value \
+                             * (self.shifter.canvas1.hUnitScale * self.shifter.canvas2.hUnitScale) / self.hUnitScale
             # print(self.shifter.signal1)
 
             # print("its in update", self.signal[i])
@@ -55,14 +57,19 @@ class ProductCanvas():
         self.paint_scales()
         # self.paint(i, j, )
 
+
     def paint_scales(self, length1=10, length2=10, width_unit=40):
         h_zero = int(self.canvas_height / 2)
         w_zero = int(self.canvas_width / 2)
-        for i in range(int(-1 * length1 / 2), int(length1 / 2)):
-            self.w.create_oval(w_zero + i - 1, h_zero - unit - 1, w_zero + i + 1, h_zero - unit + 1, fill=scale_color,
-                               outline=scale_color)
-            self.w.create_oval(w_zero + i - 1, h_zero + unit - 1, w_zero + i + 1, h_zero + unit + 1, fill=scale_color,
-                               outline=scale_color)
+        hh = int(self.canvas_height / (2 * unit))
+        for j in range(-1 * hh, hh + 1):
+            for i in range(int(-1 * length1 / 2), int(length1 / 2)):
+                self.w.create_oval(w_zero + i, h_zero - j * unit, w_zero + i + 1,
+                                   h_zero - j * unit + 1, fill=scale_color,
+                                   outline=scale_color)
+                self.w.create_oval(w_zero + i, h_zero + j * unit, w_zero + i + 1,
+                                   h_zero + j * unit + 1, fill=scale_color,
+                                   outline=scale_color)
 
         ww = int(self.canvas_width / (2 * width_unit))
         for i in range(-1 * ww, ww + 1):

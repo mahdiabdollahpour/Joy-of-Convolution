@@ -5,17 +5,21 @@ from tkinter import *
 
 class SignalShifter():
 
-    def __init__(self, canvas_width_, signal_color1, signal_color2, signal1, signal2, product_canvas, conv_canvas):
-        self.signal_color1 = signal_color1
-        self.signal_color2 = signal_color2
+    def __init__(self, canvas_width_, signal_canvas_1, signal_canvas_2, product_canvas, conv_canvas,
+                 scale_of_unit_of_h):
+        self.hUnitScale = scale_of_unit_of_h
+        self.canvas1 = signal_canvas_1
+        self.canvas2 = signal_canvas_2
+        self.signal_color1 = signal_canvas_1.signal_color
+        self.signal_color2 = signal_canvas_2.signal_color
         self.canvas_width = canvas_width_
         self.canvas_height = canvas_height
         self.pc = product_canvas
         self.cc = conv_canvas
 
-        self.signal1 = signal1.copy()
+        self.signal1 = signal_canvas_1.signal.copy()
         self.signal1_ovals = [None for i in range(self.canvas_width)]
-        self.signal2 = signal2.copy()
+        self.signal2 = signal_canvas_2.signal.copy()
         self.signal2_ovals = [None for i in range(self.canvas_width)]
         self.state = None
         self.move_start = int(self.canvas_width / 2)
@@ -80,14 +84,19 @@ class SignalShifter():
                     self.w.create_oval(i - 1, j - 1, i + 1, j + 1, fill="#fff")
         self.paint_scales()  # self.paint(i, j, )
 
+
     def paint_scales(self, length1=10, length2=10, width_unit=40):
         h_zero = int(self.canvas_height / 2)
         w_zero = int(self.canvas_width / 2)
-        for i in range(int(-1 * length1 / 2), int(length1 / 2)):
-            self.w.create_oval(w_zero + i - 1, h_zero - unit - 1, w_zero + i + 1, h_zero - unit + 1, fill=scale_color,
-                               outline=scale_color)
-            self.w.create_oval(w_zero + i - 1, h_zero + unit - 1, w_zero + i + 1, h_zero + unit + 1, fill=scale_color,
-                               outline=scale_color)
+        hh = int(self.canvas_height / (2 * unit))
+        for j in range(-1 * hh, hh + 1):
+            for i in range(int(-1 * length1 / 2), int(length1 / 2)):
+                self.w.create_oval(w_zero + i, h_zero - j * unit, w_zero + i + 1,
+                                   h_zero - j * unit + 1, fill=scale_color,
+                                   outline=scale_color)
+                self.w.create_oval(w_zero + i, h_zero + j * unit, w_zero + i + 1,
+                                   h_zero + j * unit + 1, fill=scale_color,
+                                   outline=scale_color)
 
         ww = int(self.canvas_width / (2 * width_unit))
         for i in range(-1 * ww, ww + 1):
@@ -99,18 +108,23 @@ class SignalShifter():
     def plot(self):
         self.current_shift = 0
         self.previous_shift = 0
+        # h = self.canvas_height / 2
         for i, sing in enumerate(self.signal1):
             print("Hey there")
-            self.paint(i + int((self.canvas_width / 2) - (canvas_width / 2)), sing, i, signal_idx=1)
+            self.paint(i + int((self.canvas_width / 2) - (canvas_width / 2)),
+                      sing, i, signal_idx=1)
         for i, sing in enumerate(self.signal2):
-            self.paint(i + int((self.canvas_width / 2) - (canvas_width / 2)), sing, i, signal_idx=2)
+            self.paint(i + int((self.canvas_width / 2) - (canvas_width / 2)),
+                       sing, i, signal_idx=2)
 
     def paint(self, x, y, index, signal_idx):
+        h = self.canvas_height / 2
         if signal_idx == 1:
 
             if self.signal1_ovals[index] is not None:
                 self.w.delete(self.signal1_ovals[index])
-
+            # y = y * (self.canvas1.hUnitScale / self.hUnitScale)
+            y = h + (y - h) * (self.canvas1.hUnitScale / self.hUnitScale)
             x1, y1 = (x - 1), (y - 1)
             x2, y2 = (x + 1), (y + 1)
             self.signal1_ovals[index] = self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color1,
@@ -119,6 +133,8 @@ class SignalShifter():
         else:
             if self.signal2_ovals[index] is not None:
                 self.w.delete(self.signal2_ovals[index])
+            # y = y * (self.canvas2.hUnitScale / self.hUnitScale)
+            y = h + (y - h) * (self.canvas2.hUnitScale / self.hUnitScale)
             x1, y1 = (x - 1), (y - 1)
             x2, y2 = (x + 1), (y + 1)
             self.signal2_ovals[index] = self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color2,

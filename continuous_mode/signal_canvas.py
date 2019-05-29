@@ -43,7 +43,8 @@ class SignalCanvas():
             return True
         return False
 
-    def __init__(self, signal_color):
+    def __init__(self, signal_color, scale_of_unit_of_h):
+        self.hUnitScale = scale_of_unit_of_h
         self.signal_color = signal_color
         self.canvas_width = canvas_width
         self.canvas_height = canvas_height
@@ -71,14 +72,19 @@ class SignalCanvas():
                     self.w.create_oval(i - 1, j - 1, i + 1, j + 1, fill="#fff")
         self.paint_scales()  # self.paint(i, j, )
 
-    def paint_scales(self, length1=10, length2=10, width_unit=30):
+
+    def paint_scales(self, length1=10, length2=10, width_unit=40):
         h_zero = int(self.canvas_height / 2)
         w_zero = int(self.canvas_width / 2)
-        for i in range(int(-1 * length1 / 2), int(length1 / 2)):
-            self.w.create_oval(w_zero + i - 1, h_zero - unit - 1, w_zero + i + 1, h_zero - unit + 1, fill=scale_color,
-                               outline=scale_color)
-            self.w.create_oval(w_zero + i - 1, h_zero + unit - 1, w_zero + i + 1, h_zero + unit + 1, fill=scale_color,
-                               outline=scale_color)
+        hh = int(self.canvas_height / (2 * unit))
+        for j in range(-1 * hh, hh + 1):
+            for i in range(int(-1 * length1 / 2), int(length1 / 2)):
+                self.w.create_oval(w_zero + i, h_zero - j * unit, w_zero + i + 1,
+                                   h_zero - j * unit + 1, fill=scale_color,
+                                   outline=scale_color)
+                self.w.create_oval(w_zero + i, h_zero + j * unit, w_zero + i + 1,
+                                   h_zero + j * unit + 1, fill=scale_color,
+                                   outline=scale_color)
 
         ww = int(self.canvas_width / (2 * width_unit))
         for i in range(-1 * ww, ww + 1):
@@ -104,7 +110,7 @@ class SignalCanvas():
             else:
                 self.paint(i, self.canvas_height / 2)
 
-    def step(self, length=40, const=25):
+    def step(self, length=40, const=unit):
         self.reset()
 
         for i in range(self.canvas_width):
@@ -113,8 +119,10 @@ class SignalCanvas():
             else:
                 self.paint(i, self.canvas_height / 2 - const)
 
-    def pulse(self, const=25):
+    def pulse(self):
+
         self.reset()
+        const = unit
         w = self.canvas_width
         h = self.canvas_height
         for i in range(w):
