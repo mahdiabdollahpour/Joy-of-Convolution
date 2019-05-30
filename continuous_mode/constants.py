@@ -14,3 +14,4 @@ h_unit_scale_shifter = 1
 large_canvas_width_coef = 3
 buttons_padding = 20
 scale_color = "green"
+highlight_color = "red"

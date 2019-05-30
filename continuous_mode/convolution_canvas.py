@@ -20,6 +20,7 @@ class ConvolutionCanvas():
         self.signal = [0 for i in range(self.canvas_width)]
         self.state = None
         self.last_point = 0
+        self.yellow_indexes = []
 
     def sum(self):
         res = 0
@@ -29,27 +30,41 @@ class ConvolutionCanvas():
         return res
 
     def update(self, at_point):
+        # if at_point > self.last_point:
+        #     for i in range(self.last_point, at_point):
+        #         self.plot_conved_at_point(i)
+        # else:
+        #     for i in range(at_point, self.last_point):
+        #         self.plot_conved_at_point(i)
+        # self.last_point = at_point
+
         if at_point > self.last_point:
             for i in range(self.last_point, at_point):
-                self.plot_conved_at_point(i)
+                self.plot_conved_at_point(i, self.signal_color)
         else:
             for i in range(at_point, self.last_point):
-                self.plot_conved_at_point(i)
+                self.plot_conved_at_point(i, self.signal_color)
         self.last_point = at_point
+        self.plot_conved_at_point(at_point, highlight_color)
+        for idx in self.yellow_indexes:
+            self.plot_conved_at_point(idx, self.signal_color)
+        self.yellow_indexes = [at_point]
 
-    def plot_conved_at_point(self, at_point):
+    def plot_conved_at_point(self, at_point, col):
         print(at_point, self.signal)
-        if self.flag[at_point] is False:
+        if self.flag[at_point] is False or col == highlight_color:
             l = len(self.producter.shifter.signal1)
-
-            self.flag[at_point] = True
+            if col == self.signal_color:
+                self.flag[at_point] = True
+            else:
+                self.flag[at_point] = False
             # self.signal[at_point] = self.sum()
             # if self.signal[at_point] is None:
             #     print("DAMNNNNNNNNNNNNNNNNNN")
             # print(self.signal[at_point],
             #       (int(self.canvas_height / 2) - self.signal[at_point] * convolution_diagram_unit))
             self.paint(int((self.canvas_width / 2)) + at_point,
-                       (int(self.canvas_height / 2) - self.signal[at_point + l] / self.hUnitScale), at_point)
+                       (int(self.canvas_height / 2) - self.signal[at_point + l] / self.hUnitScale), at_point, col)
 
     def do_conv_at(self, t):
         l = len(self.producter.shifter.signal1)
@@ -129,13 +144,19 @@ class ConvolutionCanvas():
     #                                h_zero + j + 1, fill=scale_color,
     #                                outline=scale_color)
 
-    def paint(self, x, y, index):
+    def paint(self, x, y, index, col=None):
+        if col is None:
+            col = self.signal_color
+        if col == highlight_color:
+            r = 5
+        else:
+            r = 1
         if self.signal_ovals[index] is not None:
             self.w.delete(self.signal_ovals[index])
 
-        x1, y1 = (x - 1), (y - 1)
-        x2, y2 = (x + 1), (y + 1)
-        self.signal_ovals[index] = self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color, outline=self.signal_color)
+        x1, y1 = (x - r), (y - r)
+        x2, y2 = (x + r), (y + r)
+        self.signal_ovals[index] = self.w.create_oval(x1, y1, x2, y2, fill=col, outline=col)
 
     def reset(self):
         self.flag = [False for i in range(self.canvas_width)]
