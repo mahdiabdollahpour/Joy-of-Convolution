@@ -19,7 +19,8 @@ conv_canvas_height_coef = 1.5
 
 class Example(Frame):
 
-    def __init__(self):
+    def __init__(self, root):
+        self.root = root
         super().__init__(width=2 * canvas_width + options_width, height=canvas_height * 4)
 
         self.initUI()
@@ -56,9 +57,9 @@ class Example(Frame):
         # self.config()
         # Style().configure("TFrame", background="#333")
         self.master.title("Jot of Convolution")
-        self.c1 = SignalCanvas("blue", scale_of_unit_of_h=h_unit_scale_signal1)
+        self.c1 = SignalCanvas("blue", scale_of_unit_of_h=h_unit_scale_signal1, mode=1)
         self.c1.create_canvas(self.master)
-        self.c2 = SignalCanvas("red", scale_of_unit_of_h=h_unit_scale_signal2)
+        self.c2 = SignalCanvas("red", scale_of_unit_of_h=h_unit_scale_signal2, mode=1)
         self.c2.create_canvas(self.master)
         self.pc = ProductCanvas(int(large_canvas_width_coef * canvas_width), "red", None,
                                 scale_of_unit_of_h=h_unit_scale_producter)
@@ -103,6 +104,13 @@ class Example(Frame):
         reset_b.place(x=canvas_width + int(canvas_width / 2.5), y=2 * int(canvas_height / 4))
         b.place(x=canvas_width + int(canvas_width / 2.5), y=1 * int(canvas_height / 4))
 
+        self.v = tk.IntVar()
+        mode1 = tk.Radiobutton(self.root, text="Mode1", padx=20, command=self.mode_choose, variable=self.v, value=1)
+        mode2 = tk.Radiobutton(self.root, text="Mode2", padx=20, command=self.mode_choose, variable=self.v, value=2)
+        self.v.set(1)
+
+        mode1.place(x=canvas_width + 20, y=3 * int(canvas_height / 4))
+        mode2.place(x=canvas_width + 100, y=3 * int(canvas_height / 4))
         entry_width = 50
 
         l1 = tk.Label(self.master, text="Scale 1:")
@@ -144,8 +152,9 @@ class Example(Frame):
         apply_scales.place(x=large_canvas_width_coef * canvas_width + 10, y=4 * canvas_height - 30)
         # b.pack()
 
-    # def minsize(self):
-    #     return 2 * canvas_width, 3 * canvas_height
+    def mode_choose(self):
+        self.c1.mode = self.v.get()
+        self.c2.mode = self.v.get()
 
 
 def main():
@@ -154,7 +163,7 @@ def main():
     root.geometry(str(int(large_canvas_width_coef * canvas_width + options_width)) + "x" + (
         str(int(3 * canvas_height + conv_canvas_height_coef * canvas_height))))
 
-    app = Example()
+    app = Example(root)
     root.mainloop()
 
 

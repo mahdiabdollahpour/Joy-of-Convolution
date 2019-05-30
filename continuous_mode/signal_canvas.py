@@ -1,13 +1,16 @@
 from tkinter import *
 from continuous_mode.constants import *
 
+pressed = "pressed"
+line = "line"
+
 
 class SignalCanvas():
 
     def motion_lis(self, event):
         # global state
         ## TODO : check for out of ranges
-        if self.state is not None:
+        if self.state == pressed:
             # print('c')
             print("x", event.x)
             print("y", event.y)
@@ -30,10 +33,31 @@ class SignalCanvas():
     def Button_lis(self, event):
         if self.state is None:
             print('a')
-            self.state = "pressed"
+            if self.mode == 1:
+                self.state = pressed
+            else:
+                self.state = line
+                self.start_line_x = event.x
+                self.start_line_y = event.y
         else:
             print('b')
+            if self.state == line:
+                self.draw_line(event)
             self.state = None
+
+    def draw_line(self, event):
+        x1 = self.start_line_x
+        y1 = self.start_line_y
+        x2 = event.x
+        y2 = event.y
+        if x1 < x2:
+            slope = (y2 - y1) / (x2 - x1)
+            for i in range(x1, x2):
+                self.paint(i, (i - x1) * slope + y1)
+        else:
+            slope = (y1 - y2) / (x1 - x2)
+            for i in range(x2, x1):
+                self.paint(i, (i - x2) * slope + y2)
 
     def out_lis(self, event):
         self.state = None
@@ -43,7 +67,8 @@ class SignalCanvas():
             return True
         return False
 
-    def __init__(self, signal_color, scale_of_unit_of_h):
+    def __init__(self, signal_color, scale_of_unit_of_h, mode):
+        self.mode = mode
         self.hUnitScale = scale_of_unit_of_h
         self.signal_color = signal_color
         self.canvas_width = canvas_width
@@ -71,7 +96,6 @@ class SignalCanvas():
                     # print('hkj')
                     self.w.create_oval(i - 1, j - 1, i + 1, j + 1, fill="#fff")
         self.paint_scales()  # self.paint(i, j, )
-
 
     def paint_scales(self, length1=10, length2=10, width_unit=40):
         h_zero = int(self.canvas_height / 2)
