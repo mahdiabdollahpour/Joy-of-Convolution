@@ -43,7 +43,8 @@ class SignalCanvas():
             return True
         return False
 
-    def __init__(self, signal_color):
+    def __init__(self, signal_color,scale_of_unit_of_h):
+        self.hUnitScale = scale_of_unit_of_h
         self.signal_color = signal_color
         self.canvas_width = canvas_width
         self.canvas_height = canvas_height
@@ -72,6 +73,7 @@ class SignalCanvas():
                     # self.paint(i, j, )
         self.paint_scales()
 
+
     def paint_scales(self, length1=10):
         h_zero = int(self.canvas_height / 2)
         w_zero = int(self.canvas_width / 2)
@@ -84,6 +86,7 @@ class SignalCanvas():
                 self.w.create_oval(w_zero + i, h_zero + j * unit, w_zero + i + 1,
                                    h_zero + j * unit + 1, fill=scale_color,
                                    outline=scale_color)
+
 
     def paint(self, x, y):
         index = descretize_unit * int(x / descretize_unit)
@@ -115,7 +118,7 @@ class SignalCanvas():
             else:
                 self.paint(descretize_unit * i, self.canvas_height / 2)
 
-    def step(self, length=10, const=40):
+    def step(self, length=10, const=unit):
         self.reset()
         w = len(self.signal)
         for i in range(len(self.signal)):
@@ -126,7 +129,7 @@ class SignalCanvas():
                 self.paint(descretize_unit * i, self.canvas_height / 2 - const)
         print(self.signal)
 
-    def pulse(self, length=10, height=10, const=40):
+    def pulse(self, length=10, height=10, const=unit):
         w = len(self.signal)
         for i in range(w):
             if i < w * 2 / 3 and i > w / 3:

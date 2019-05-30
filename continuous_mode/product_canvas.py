@@ -4,8 +4,8 @@ from tkinter import *
 
 
 class ProductCanvas():
-    def __init__(self, canvas_width_, signal_color, shifter, unit_of_scale_of_h):
-        self.hUnitScale = unit_of_scale_of_h
+    def __init__(self, canvas_width_, signal_color, shifter, scale_of_unit_of_h):
+        self.hUnitScale = scale_of_unit_of_h
         self.shifter = shifter
         self.signal_color = signal_color
         self.canvas_width = canvas_width_

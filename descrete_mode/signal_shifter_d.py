@@ -5,22 +5,27 @@ from tkinter import *
 
 class SignalShifter():
 
-    def __init__(self, canvas_width_, signal_color1, signal_color2, signal1, signal2, product_canvas, conv_canvas):
-        self.signal_color1 = signal_color1
-        self.signal_color2 = signal_color2
+    def __init__(self, canvas_width_, canvas1, canvas2, product_canvas, conv_canvas,
+                 scale_of_unit_of_h):
+        self.hUnitScale = scale_of_unit_of_h
+        self.canvas1 = canvas1
+        self.canvas2 = canvas2
+        self.signal_color1 = canvas1.signal_color
+        self.signal_color2 = canvas2.signal_color
         self.canvas_width = canvas_width_
         self.canvas_height = canvas_height
         self.pc = product_canvas
         self.cc = conv_canvas
 
-        self.signal1 = signal1.copy()
+        self.signal1 = self.canvas1.signal.copy()
         self.signal1_ovals = [[] for i in range(len(self.signal1))]
-        self.signal2 = signal2.copy()
+        self.signal2 = self.canvas2.signal.copy()
         self.signal2_ovals = [[] for i in range(len(self.signal2))]
         self.state = None
         self.move_start = int(self.canvas_width / 2)
         self.current_shift = 0
         self.previous_shift = 0
+        self.last_stop = 0
 
     def round(self, val):
         if (val % descretize_unit) < descretize_unit / 2:
@@ -52,9 +57,11 @@ class SignalShifter():
                            val,
                            i,
                            signal_idx=1)
-            self.pc.update()
-
-            self.cc.update(int(self.total_shift / descretize_unit))
+            shift = int(self.total_shift / descretize_unit)
+            if self.last_stop != shift:
+                self.pc.update(shift)
+                self.cc.update(shift)
+                self.last_stop = shift
 
     # def do_all_convs(self):
     # l = len(self.signal2)
@@ -120,12 +127,14 @@ class SignalShifter():
                        color="red")
 
     def paint(self, x, y, idx, signal_idx, color="#476042"):
+        h = self.canvas_height / 2
         if signal_idx == 1:
             index = descretize_unit * int(x / descretize_unit)
             for ov in self.signal1_ovals[idx]:
                 self.w.delete(ov)
             self.signal1_ovals[idx] = []
             if y < int(canvas_height / 2):
+                y = h + (y - h) * (self.canvas1.hUnitScale / self.hUnitScale)
                 for i in range(int(y), int(canvas_height / 2)):
                     x1, y1 = (index - 1), (i - 1)
                     x2, y2 = (index + 1), (i + 1)
@@ -133,6 +142,7 @@ class SignalShifter():
                     self.signal1_ovals[idx].append(
                         self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color1, outline=self.signal_color1))
             else:
+                y = h + (y - h) * (self.canvas1.hUnitScale / self.hUnitScale)
                 for i in range(int(canvas_height / 2), int(y)):
                     x1, y1 = (index - 1), (i - 1)
                     x2, y2 = (index + 1), (i + 1)
@@ -147,6 +157,7 @@ class SignalShifter():
                 self.w.delete(ov)
             self.signal2_ovals[idx] = []
             if y < int(canvas_height / 2):
+                y = h + (y - h) * (self.canvas2.hUnitScale / self.hUnitScale)
                 for i in range(int(y), int(canvas_height / 2)):
                     x1, y1 = (index - 1), (i - 1)
                     x2, y2 = (index + 1), (i + 1)
@@ -154,6 +165,7 @@ class SignalShifter():
                     self.signal2_ovals[idx].append(
                         self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color2, outline=self.signal_color2))
             else:
+                y = h + (y - h) * (self.canvas2.hUnitScale / self.hUnitScale)
                 for i in range(int(canvas_height / 2), int(y)):
                     x1, y1 = (index - 1), (i - 1)
                     x2, y2 = (index + 1), (i + 1)

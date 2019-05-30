@@ -4,7 +4,8 @@ from tkinter import *
 
 
 class ProductCanvas():
-    def __init__(self, canvas_width_, signal_color, shifter):
+    def __init__(self, canvas_width_, signal_color, shifter, scale_of_unit_of_h):
+        self.hUnitScale = scale_of_unit_of_h
         self.shifter = shifter
         self.signal_color = signal_color
         self.canvas_width = canvas_width_
@@ -21,18 +22,19 @@ class ProductCanvas():
         else:
             return descretize_unit * int((val / descretize_unit) + 1)
 
-    def update(self):
+    def update(self, shift):
         for ov in self.signal_ovals:
             self.w.delete(ov)
         for i in range(len(self.shifter.signal2)):
-            index = - 1 * int(self.shifter.total_shift / descretize_unit) + i
+            index = - 1 * shift + i
             # print("at index", i)
             shifted_value = 0
             if index < len(self.shifter.signal1) and index >= 0:
                 shifted_value = ((int(canvas_height / 2) - self.shifter.signal1[index]) / unit)
             stable_value = ((int(canvas_height / 2) - self.shifter.signal2[i]) / unit)
             # stable_value = 1
-            self.signal[i] = shifted_value * stable_value
+            self.signal[i] = shifted_value * stable_value \
+                             * (self.shifter.canvas1.hUnitScale * self.shifter.canvas2.hUnitScale) / self.hUnitScale
             # print(self.shifter.signal1)
 
             # print("its in update", self.signal[i])
@@ -84,14 +86,14 @@ class ProductCanvas():
                 x2, y2 = (index + 1), (i + 1)
                 # print("index", index)
                 self.signal_ovals[int(index / descretize_unit)].append(
-                    self.w.create_oval(x1, y1, x2, y2, fill="#fff"))
+                    self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color, outline=self.signal_color))
         else:
             for i in range(int(canvas_height / 2), int(y)):
                 x1, y1 = (index - 1), (i - 1)
                 x2, y2 = (index + 1), (i + 1)
                 # print("index", index)
                 self.signal_ovals[int(index / descretize_unit)].append(
-                    self.w.create_oval(x1, y1, x2, y2, fill="#000"))
+                    self.w.create_oval(x1, y1, x2, y2, fill=self.signal_color, outline=self.signal_color))
         # self.signal[int(index / descretize_unit)] = y
 
     def reset(self):

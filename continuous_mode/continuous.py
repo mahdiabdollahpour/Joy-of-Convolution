@@ -61,7 +61,7 @@ class Example(Frame):
         self.c2 = SignalCanvas("red", scale_of_unit_of_h=h_unit_scale_signal2)
         self.c2.create_canvas(self.master)
         self.pc = ProductCanvas(int(large_canvas_width_coef * canvas_width), "red", None,
-                                unit_of_scale_of_h=h_unit_scale_producter)
+                                scale_of_unit_of_h=h_unit_scale_producter)
         self.cc = ConvolutionCanvas(int(large_canvas_width_coef * canvas_width), "blue", self.pc,
                                     conv_canvas_height_coef, scale_of_unit_of_h=h_unit_scale_convolution)
         self.ssh = SignalShifter(int(large_canvas_width_coef * canvas_width), self.c1,

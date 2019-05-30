@@ -9,6 +9,7 @@ from descrete_mode.convolution_canvas_d import *
 
 
 # from PIL import Image, ImageTk
+import tkinter as tk
 from tkinter import Tk, BOTH
 from tkinter.ttk import Frame, Label
 
@@ -19,7 +20,7 @@ conv_canvas_height_coef = 1.5
 class Example(Frame):
 
     def __init__(self):
-        super().__init__(width=2 * canvas_width, height=canvas_height * 4)
+        super().__init__(width=2 * canvas_width+ options_width, height=canvas_height * 4)
 
         self.initUI()
 
@@ -49,16 +50,18 @@ class Example(Frame):
         # self.config()
         # Style().configure("TFrame", background="#333")
         self.master.title("Jot of Convolution")
-        self.c1 = SignalCanvas("blue")
+        self.master.title("Jot of Convolution")
+        self.c1 = SignalCanvas("blue", scale_of_unit_of_h=h_unit_scale_signal1)
         self.c1.create_canvas(self.master)
-        self.c2 = SignalCanvas("red")
+        self.c2 = SignalCanvas("red", scale_of_unit_of_h=h_unit_scale_signal2)
         self.c2.create_canvas(self.master)
-        self.pc = ProductCanvas(int(large_canvas_width_coef * canvas_width), "red", None)
-        self.cc = ConvolutionCanvas(int(large_canvas_width_coef * canvas_width), "red", self.pc,
-                                    conv_canvas_height_coef)
-        self.ssh = SignalShifter(int(large_canvas_width_coef * canvas_width), self.c1.signal_color,
-                                 self.c2.signal_color, self.c1.signal, self.c2.signal,
-                                 self.pc, self.cc)
+        self.pc = ProductCanvas(int(large_canvas_width_coef * canvas_width), "red", None,
+                                scale_of_unit_of_h=h_unit_scale_producter)
+        self.cc = ConvolutionCanvas(int(large_canvas_width_coef * canvas_width), "blue", self.pc,
+                                    conv_canvas_height_coef, scale_of_unit_of_h=h_unit_scale_convolution)
+        self.ssh = SignalShifter(int(large_canvas_width_coef * canvas_width), self.c1,
+                                 self.c2,
+                                 self.pc, self.cc, scale_of_unit_of_h=h_unit_scale_shifter)
         self.pc.shifter = self.ssh
         self.cc.create_canvas(self.master)
         self.pc.create_canvas(self.master)
@@ -73,7 +76,7 @@ class Example(Frame):
 
         reset_b = Button(self.master, text="Reset", command=self.reset, height=1, width=5)
 
-        message = Label(self.master, text="Draw your Signal")
+        message = Label(self.master)
         message.pack(side=BOTTOM)
 
         self.c1.w.place(x=0, y=0)
@@ -94,6 +97,55 @@ class Example(Frame):
 
         reset_b.place(x=canvas_width + int(canvas_width / 2.5), y=2 * int(canvas_height / 4))
         b.place(x=canvas_width + int(canvas_width / 2.5), y=1 * int(canvas_height / 4))
+
+
+
+        entry_width = 50
+
+        l1 = tk.Label(self.master, text="Scale 1:")
+        self.signal1_scale_inp = tk.Entry(self.master)
+        # signal1_scale_inp.
+        l1.place(x=large_canvas_width_coef * canvas_width + 5, y=0)
+        self.signal1_scale_inp.place(x=large_canvas_width_coef * canvas_width + 5, y=30, width=entry_width)
+        self.signal1_scale_inp.insert(0, str(h_unit_scale_signal1))
+
+        l2 = tk.Label(self.master, text="Scale 2:")
+        self.signal2_scale_inp = tk.Entry(self.master)
+        l2.place(x=large_canvas_width_coef * canvas_width + 5, y=canvas_height / 2)
+        self.signal2_scale_inp.place(x=large_canvas_width_coef * canvas_width + 5, y=30 + canvas_height / 2,
+                                     width=entry_width)
+        self.signal2_scale_inp.insert(0, str(h_unit_scale_signal2))
+
+        l4 = tk.Label(self.master, text="Scale:")
+        self.shifter_scale_inp = tk.Entry(self.master)
+        l4.place(x=large_canvas_width_coef * canvas_width + 5, y=canvas_height)
+        self.shifter_scale_inp.place(x=large_canvas_width_coef * canvas_width + 5, y=30 + canvas_height,
+                                     width=entry_width)
+        self.shifter_scale_inp.insert(0, str(h_unit_scale_shifter))
+
+        l3 = tk.Label(self.master, text="Scale:")
+        self.producter_scale_inp = tk.Entry(self.master)
+        l3.place(x=large_canvas_width_coef * canvas_width + 5, y=2 * canvas_height)
+        self.producter_scale_inp.place(x=large_canvas_width_coef * canvas_width + 5, y=30 + 2 * canvas_height,
+                                       width=entry_width)
+        self.producter_scale_inp.insert(0, str(h_unit_scale_producter))
+
+        l5 = tk.Label(self.master, text="Scale:")
+        self.conv_scale_inp = tk.Entry(self.master)
+        l5.place(x=large_canvas_width_coef * canvas_width + 5, y=3 * canvas_height)
+        self.conv_scale_inp.place(x=large_canvas_width_coef * canvas_width + 5, y=30 + 3 * canvas_height,
+                                  width=entry_width)
+        self.conv_scale_inp.insert(0, str(h_unit_scale_convolution))
+
+        apply_scales = Button(self.master, text="Apply Scales", command=self.apply_scales, height=1, width=10)
+        apply_scales.place(x=large_canvas_width_coef * canvas_width + 10, y=4 * canvas_height - 30)
+
+    def apply_scales(self):
+        self.c1.hUnitScale = float(self.signal1_scale_inp.get())
+        self.c2.hUnitScale = float(self.signal2_scale_inp.get())
+        self.cc.hUnitScale = float(self.conv_scale_inp.get())
+        self.ssh.hUnitScale = float(self.shifter_scale_inp.get())
+        self.pc.hUnitScale = float(self.producter_scale_inp.get())
         # b.pack()
 
     # def minsize(self):
@@ -103,7 +155,7 @@ class Example(Frame):
 def main():
     root = Tk()
     # root.geometry("500x550+450+300")
-    root.geometry(str(int(large_canvas_width_coef * canvas_width)) + "x" + (
+    root.geometry(str(int(large_canvas_width_coef * canvas_width+ options_width)) + "x" + (
         str(int(3 * canvas_height + conv_canvas_height_coef * canvas_height))))
 
     app = Example()
